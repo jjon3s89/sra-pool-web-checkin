@@ -1,0 +1,60 @@
+﻿@model WebPoolCheckin.Models.Share
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+</head>
+<body>
+    @using (Html.BeginForm("Search", "Search"))
+    {
+    <div>
+            <label>Please enter your Number</label>
+            @Html.TextBox("SearchText")
+            @Html.ValidationSummary(false, "Errors")
+            <button>Go</button>
+        </div>
+    }
+    @if (Model != null)
+    {
+        using (Html.BeginForm("Checkin", "Search"))
+        {
+            <div style="clear:both">
+                @Html.HiddenFor(m => m.Id)
+                @foreach (var sf in Model.ShareFamilies)
+                {
+                    foreach (var p in sf.Family.People)
+                    {
+                        <div style="border:1px black solid; clear: none; float: left; margin: 10px; height: 430px; width: 400px">
+                            @if (p.Picture != null)
+                            {
+                                <input type="checkbox" name="CheckinPeople" value="@p.Id" />
+                                @p.FirstName @p.LastName
+                                <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="400" width="400" class="person" />
+                            }
+                            else
+                            {
+                                @p.FirstName @p.LastName
+                                <img src='~/Images/default_user_300x300.png' class="no-image"/>
+                            }
+                        </div>
+                    }
+                }
+                <br />
+            </div>
+            <button>Checkin</button>
+        }
+    }
+    <script type="text/javascript">
+        $(function () {
+            $('img.person').click(function (e) {
+                $(this).parent().children('input[type="checkbox"]').click();
+            });
+            $('img.no-image').parent().click(function (e) {
+            });
+        });
+    </script></body>
+</html>

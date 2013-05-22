@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PoolModelStoreContainer" CdmEntityContainer="applicationdataEntities">
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="PoolModel.Address">
+        <MappingFragment StoreEntitySet="Addresses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+          <ScalarProperty Name="Address_Street" ColumnName="Address_Street" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Entries">
+      <EntityTypeMapping TypeName="PoolModel.Entry">
+        <MappingFragment StoreEntitySet="Entries">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Entry_Person" ColumnName="Entry_Person" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Families">
+      <EntityTypeMapping TypeName="PoolModel.Family">
+        <MappingFragment StoreEntitySet="Families">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+          <ScalarProperty Name="EmergencyContact" ColumnName="EmergencyContact" />
+          <ScalarProperty Name="EmergencyContactPhone" ColumnName="EmergencyContactPhone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+          <ScalarProperty Name="Family_Address" ColumnName="Family_Address" />
+          <ScalarProperty Name="Family_ShareUserType" ColumnName="Family_ShareUserType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FamilyMemberTypes">
+      <EntityTypeMapping TypeName="PoolModel.FamilyMemberType">
+        <MappingFragment StoreEntitySet="FamilyMemberTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="PoolModel.Message">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="Read" ColumnName="Read" />
+          <ScalarProperty Name="From" ColumnName="From" />
+          <ScalarProperty Name="ReplyPhone" ColumnName="ReplyPhone" />
+          <ScalarProperty Name="ReplyEmail" ColumnName="ReplyEmail" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Message_Family" ColumnName="Message_Family" />
+          <ScalarProperty Name="Message_Person" ColumnName="Message_Person" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="PoolModel.Person">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="EmergencyContact" ColumnName="EmergencyContact" />
+          <ScalarProperty Name="EmergencyContactPhone" ColumnName="EmergencyContactPhone" />
+          <ScalarProperty Name="InsuranceCompany" ColumnName="InsuranceCompany" />
+          <ScalarProperty Name="InsurancePolicyNumber" ColumnName="InsurancePolicyNumber" />
+          <ScalarProperty Name="Family_Person" ColumnName="Family_Person" />
+          <ScalarProperty Name="FamilyMemberType_Person" ColumnName="FamilyMemberType_Person" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PoolAccesses">
+      <EntityTypeMapping TypeName="PoolModel.PoolAccess">
+        <MappingFragment StoreEntitySet="PoolAccesses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PoolAccess_Share" ColumnName="PoolAccess_Share" />
+          <ScalarProperty Name="PoolAccess_ShareOwnerType" ColumnName="PoolAccess_ShareOwnerType" />
+          <ScalarProperty Name="PoolAccess_ShareUserType" ColumnName="PoolAccess_ShareUserType" />
+          <ScalarProperty Name="PoolAccess_Family" ColumnName="PoolAccess_Family" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShareFamilies">
+      <EntityTypeMapping TypeName="PoolModel.ShareFamily">
+        <MappingFragment StoreEntitySet="ShareFamilies">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ShareFamily_Share" ColumnName="ShareFamily_Share" />
+          <ScalarProperty Name="ShareFamily_Family" ColumnName="ShareFamily_Family" />
+          <ScalarProperty Name="ShareFamily_ShareUserType" ColumnName="ShareFamily_ShareUserType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShareOwnerTypes">
+      <EntityTypeMapping TypeName="PoolModel.ShareOwnerType">
+        <MappingFragment StoreEntitySet="ShareOwnerTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shares">
+      <EntityTypeMapping TypeName="PoolModel.Share">
+        <MappingFragment StoreEntitySet="Shares">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Share_Address" ColumnName="Share_Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShareUserTypes">
+      <EntityTypeMapping TypeName="PoolModel.ShareUserType">
+        <MappingFragment StoreEntitySet="ShareUserTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Streets">
+      <EntityTypeMapping TypeName="PoolModel.Street">
+        <MappingFragment StoreEntitySet="Streets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PoolDataEntitiesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PoolDataEntitiesModelStoreContainer">
+    <EntitySet Name="Addresses" EntityType="PoolDataEntitiesModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Entries" EntityType="PoolDataEntitiesModel.Store.Entries" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Families" EntityType="PoolDataEntitiesModel.Store.Families" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FamilyMemberTypes" EntityType="PoolDataEntitiesModel.Store.FamilyMemberTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Memberships" EntityType="PoolDataEntitiesModel.Store.Memberships" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Messages" EntityType="PoolDataEntitiesModel.Store.Messages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People" EntityType="PoolDataEntitiesModel.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PoolAccesses" EntityType="PoolDataEntitiesModel.Store.PoolAccesses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RolePermissions" EntityType="PoolDataEntitiesModel.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ShareFamilies" EntityType="PoolDataEntitiesModel.Store.ShareFamilies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ShareOwnerTypes" EntityType="PoolDataEntitiesModel.Store.ShareOwnerTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Shares" EntityType="PoolDataEntitiesModel.Store.Shares" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ShareUserTypes" EntityType="PoolDataEntitiesModel.Store.ShareUserTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Streets" EntityType="PoolDataEntitiesModel.Store.Streets" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="Address_Street" Association="PoolDataEntitiesModel.Store.Address_Street">
+      <End Role="Streets" EntitySet="Streets" />
+      <End Role="Addresses" EntitySet="Addresses" />
+    </AssociationSet>
+    <AssociationSet Name="Entry_Person" Association="PoolDataEntitiesModel.Store.Entry_Person">
+      <End Role="People" EntitySet="People" />
+      <End Role="Entries" EntitySet="Entries" />
+    </AssociationSet>
+    <AssociationSet Name="Family_Address" Association="PoolDataEntitiesModel.Store.Family_Address">
+      <End Role="Addresses" EntitySet="Addresses" />
+      <End Role="Families" EntitySet="Families" />
+    </AssociationSet>
+    <AssociationSet Name="Family_Person" Association="PoolDataEntitiesModel.Store.Family_Person">
+      <End Role="Families" EntitySet="Families" />
+      <End Role="People" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="Family_ShareUserType" Association="PoolDataEntitiesModel.Store.Family_ShareUserType">
+      <End Role="ShareUserTypes" EntitySet="ShareUserTypes" />
+      <End Role="Families" EntitySet="Families" />
+    </AssociationSet>
+    <AssociationSet Name="FamilyMemberType_Person" Association="PoolDataEntitiesModel.Store.FamilyMemberType_Person">
+      <End Role="FamilyMemberTypes" EntitySet="FamilyMemberTypes" />
+      <End Role="People" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="Message_Family" Association="PoolDataEntitiesModel.Store.Message_Family">
+      <End Role="Families" EntitySet="Families" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="Message_Person" Association="PoolDataEntitiesModel.Store.Message_Person">
+      <End Role="People" EntitySet="People" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="PoolAccess_Family" Association="PoolDataEntitiesModel.Store.PoolAccess_Family">
+      <End Role="Families" EntitySet="Families" />
+      <End Role="PoolAccesses" EntitySet="PoolAccesses" />
+    </AssociationSet>
+    <AssociationSet Name="PoolAccess_ShareOwnerType" Association="PoolDataEntitiesModel.Store.PoolAccess_ShareOwnerType">
+      <End Role="ShareOwnerTypes" EntitySet="ShareOwnerTypes" />
+      <End Role="PoolAccesses" EntitySet="PoolAccesses" />
+    </AssociationSet>
+    <AssociationSet Name="PoolAccess_ShareUserType" Association="PoolDataEntitiesModel.Store.PoolAccess_ShareUserType">
+      <End Role="ShareUserTypes" EntitySet="ShareUserTypes" />
+      <End Role="PoolAccesses" EntitySet="PoolAccesses" />
+    </AssociationSet>
+    <AssociationSet Name="Share_Address" Association="PoolDataEntitiesModel.Store.Share_Address">
+      <End Role="Addresses" EntitySet="Addresses" />
+      <End Role="Shares" EntitySet="Shares" />
+    </AssociationSet>
+    <AssociationSet Name="ShareFamily_Family" Association="PoolDataEntitiesModel.Store.ShareFamily_Family">
+      <End Role="Families" EntitySet="Families" />
+      <End Role="ShareFamilies" EntitySet="ShareFamilies" />
+    </AssociationSet>
+    <AssociationSet Name="ShareFamily_Share" Association="PoolDataEntitiesModel.Store.ShareFamily_Share">
+      <End Role="Shares" EntitySet="Shares" />
+      <End Role="ShareFamilies" EntitySet="ShareFamilies" />
+    </AssociationSet>
+    <AssociationSet Name="ShareFamily_ShareUserType" Association="PoolDataEntitiesModel.Store.ShareFamily_ShareUserType">
+      <End Role="ShareUserTypes" EntitySet="ShareUserTypes" />
+      <End Role="ShareFamilies" EntitySet="ShareFamilies" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Addresses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Address2" Type="nvarchar" MaxLength="255" />
+    <Property Name="City" Type="nvarchar" MaxLength="255" />
+    <Property Name="State" Type="nvarchar" MaxLength="255" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="255" />
+    <Property Name="HouseNumber" Type="smallint" />
+    <Property Name="Address_Street" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Entries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="Entry_Person" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Families">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FamilyName" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="EmergencyContact" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmergencyContactPhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="PrimaryPhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="Family_Address" Type="int" />
+    <Property Name="Family_ShareUserType" Type="int" />
+  </EntityType>
+  <EntityType Name="FamilyMemberTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Memberships">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+    <Property Name="Body" Type="nvarchar" MaxLength="255" />
+    <Property Name="Sent" Type="datetime" />
+    <Property Name="Read" Type="datetime" />
+    <Property Name="From" Type="nvarchar" MaxLength="255" />
+    <Property Name="ReplyPhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="ReplyEmail" Type="nvarchar" MaxLength="255" />
+    <Property Name="Display" Type="nvarchar" MaxLength="255" />
+    <Property Name="Message_Family" Type="int" />
+    <Property Name="Message_Person" Type="int" />
+  </EntityType>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Picture" Type="varbinary(max)" />
+    <Property Name="MiddleName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Birthday" Type="datetime" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="HomePhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="MobilePhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="WorkPhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmergencyContact" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmergencyContactPhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="InsuranceCompany" Type="nvarchar" MaxLength="255" />
+    <Property Name="InsurancePolicyNumber" Type="nvarchar" MaxLength="255" />
+    <Property Name="Family_Person" Type="int" />
+    <Property Name="FamilyMemberType_Person" Type="int" />
+  </EntityType>
+  <EntityType Name="PoolAccesses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PoolAccess_Share" Type="int" Nullable="false" />
+    <Property Name="PoolAccess_ShareOwnerType" Type="int" />
+    <Property Name="PoolAccess_ShareUserType" Type="int" />
+    <Property Name="PoolAccess_Family" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RolePermissions">
+    <Key>
+      <PropertyRef Name="RoleName" />
+      <PropertyRef Name="PermissionId" />
+    </Key>
+    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="PermissionId" Type="nvarchar" Nullable="false" MaxLength="322" />
+  </EntityType>
+  <EntityType Name="ShareFamilies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="ShareFamily_Share" Type="int" Nullable="false" />
+    <Property Name="ShareFamily_Family" Type="int" Nullable="false" />
+    <Property Name="ShareFamily_ShareUserType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ShareOwnerTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Shares">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="255" />
+    <Property Name="Message" Type="nvarchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="Share_Address" Type="int" />
+  </EntityType>
+  <EntityType Name="ShareUserTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Streets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <Association Name="Address_Street">
+    <End Role="Streets" Type="PoolDataEntitiesModel.Store.Streets" Multiplicity="1" />
+    <End Role="Addresses" Type="PoolDataEntitiesModel.Store.Addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Streets">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Addresses">
+        <PropertyRef Name="Address_Street" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Entry_Person">
+    <End Role="People" Type="PoolDataEntitiesModel.Store.People" Multiplicity="1" />
+    <End Role="Entries" Type="PoolDataEntitiesModel.Store.Entries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entries">
+        <PropertyRef Name="Entry_Person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Family_Address">
+    <End Role="Addresses" Type="PoolDataEntitiesModel.Store.Addresses" Multiplicity="0..1" />
+    <End Role="Families" Type="PoolDataEntitiesModel.Store.Families" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Addresses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Families">
+        <PropertyRef Name="Family_Address" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Family_Person">
+    <End Role="Families" Type="PoolDataEntitiesModel.Store.Families" Multiplicity="0..1" />
+    <End Role="People" Type="PoolDataEntitiesModel.Store.People" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Families">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="People">
+        <PropertyRef Name="Family_Person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Family_ShareUserType">
+    <End Role="ShareUserTypes" Type="PoolDataEntitiesModel.Store.ShareUserTypes" Multiplicity="0..1" />
+    <End Role="Families" Type="PoolDataEntitiesModel.Store.Families" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShareUserTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Families">
+        <PropertyRef Name="Family_ShareUserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FamilyMemberType_Person">
+    <End Role="FamilyMemberTypes" Type="PoolDataEntitiesModel.Store.FamilyMemberTypes" Multiplicity="0..1" />
+    <End Role="People" Type="PoolDataEntitiesModel.Store.People" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FamilyMemberTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="People">
+        <PropertyRef Name="FamilyMemberType_Person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Message_Family">
+    <End Role="Families" Type="PoolDataEntitiesModel.Store.Families" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Messages" Type="PoolDataEntitiesModel.Store.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Families">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="Message_Family" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Message_Person">
+    <End Role="People" Type="PoolDataEntitiesModel.Store.People" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Messages" Type="PoolDataEntitiesModel.Store.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="Message_Person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PoolAccess_Family">
+    <End Role="Families" Type="PoolDataEntitiesModel.Store.Families" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PoolAccesses" Type="PoolDataEntitiesModel.Store.PoolAccesses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Families">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PoolAccesses">
+        <PropertyRef Name="PoolAccess_Family" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PoolAccess_ShareOwnerType">
+    <End Role="ShareOwnerTypes" Type="PoolDataEntitiesModel.Store.ShareOwnerTypes" Multiplicity="0..1" />
+    <End Role="PoolAccesses" Type="PoolDataEntitiesModel.Store.PoolAccesses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShareOwnerTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PoolAccesses">
+        <PropertyRef Name="PoolAccess_ShareOwnerType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PoolAccess_ShareUserType">
+    <End Role="ShareUserTypes" Type="PoolDataEntitiesModel.Store.ShareUserTypes" Multiplicity="0..1" />
+    <End Role="PoolAccesses" Type="PoolDataEntitiesModel.Store.PoolAccesses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShareUserTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PoolAccesses">
+        <PropertyRef Name="PoolAccess_ShareUserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Share_Address">
+    <End Role="Addresses" Type="PoolDataEntitiesModel.Store.Addresses" Multiplicity="0..1" />
+    <End Role="Shares" Type="PoolDataEntitiesModel.Store.Shares" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Addresses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shares">
+        <PropertyRef Name="Share_Address" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShareFamily_Family">
+    <End Role="Families" Type="PoolDataEntitiesModel.Store.Families" Multiplicity="1" />
+    <End Role="ShareFamilies" Type="PoolDataEntitiesModel.Store.ShareFamilies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Families">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ShareFamilies">
+        <PropertyRef Name="ShareFamily_Family" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShareFamily_Share">
+    <End Role="Shares" Type="PoolDataEntitiesModel.Store.Shares" Multiplicity="1" />
+    <End Role="ShareFamilies" Type="PoolDataEntitiesModel.Store.ShareFamilies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shares">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ShareFamilies">
+        <PropertyRef Name="ShareFamily_Share" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShareFamily_ShareUserType">
+    <End Role="ShareUserTypes" Type="PoolDataEntitiesModel.Store.ShareUserTypes" Multiplicity="1" />
+    <End Role="ShareFamilies" Type="PoolDataEntitiesModel.Store.ShareFamilies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShareUserTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ShareFamilies">
+        <PropertyRef Name="ShareFamily_ShareUserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
