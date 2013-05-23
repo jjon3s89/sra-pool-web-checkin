@@ -31,3 +31,4 @@ c:\Projects\WebPoolCheckin\WebPoolCheckin.Tests\bin\Debug\System.Web.WebPages.Ra
 c:\Projects\WebPoolCheckin\WebPoolCheckin.Tests\bin\Debug\EntityFramework.xml
 c:\Projects\WebPoolCheckin\WebPoolCheckin.Tests\obj\Debug\WebPoolCheckin.Tests.dll
 c:\Projects\WebPoolCheckin\WebPoolCheckin.Tests\obj\Debug\WebPoolCheckin.Tests.pdb
+C:\projects\WebPoolCheckin\WebPoolCheckin.Tests\bin\Debug\WebActivatorEx.dll

@@ -5,8 +5,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Search</title>
-    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/bootstrap")
 </head>
 <body>
     @using (Html.BeginForm("Search", "Search"))
@@ -48,6 +50,11 @@
             <button>Checkin</button>
         }
     }
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
         $(function () {
             $('img.person').click(function (e) {
