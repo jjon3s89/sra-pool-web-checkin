@@ -99,6 +99,7 @@
     <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Entry_Person" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Person" Relationship="PoolDataEntitiesModel.Entry_Person" FromRole="Entries" ToRole="People" />
+    <Property Type="Boolean" Name="Is_exit" Nullable="false" />
   </EntityType>
   <EntityType Name="Family">
     <Key>
@@ -177,6 +178,7 @@
     <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.Family_Person" FromRole="People" ToRole="Families" />
     <NavigationProperty Name="FamilyMemberType" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="People" ToRole="FamilyMemberTypes" />
     <NavigationProperty Name="Messages" Relationship="PoolDataEntitiesModel.Message_Person" FromRole="People" ToRole="Messages" />
+    <Property Type="Boolean" Name="Is_Guest" />
   </EntityType>
   <EntityType Name="PoolAccess">
     <Key>

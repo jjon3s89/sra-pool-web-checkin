@@ -134,6 +134,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Search\SearchAreaRegistration.cs" />
     <Compile Include="Areas\Search\Controllers\SearchController.cs" />
+    <Compile Include="Areas\Search\Views\GuestEntryController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -295,6 +297,11 @@
       <DependentUpon>PoolEntitiesModel.edmx</DependentUpon>
       <LastGenOutput>PoolEntitiesModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Search\Views\GuestEntry\Index.cshtml" />
+    <Content Include="Areas\Search\Views\GuestEntry\Details.cshtml" />
+    <Content Include="Areas\Search\Views\GuestEntry\Create.cshtml" />
+    <Content Include="Areas\Search\Views\GuestEntry\Edit.cshtml" />
+    <Content Include="Areas\Search\Views\GuestEntry\Delete.cshtml" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -325,13 +332,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\Search.cshtml" />
+    <Content Include="Areas\Search\Views\Search\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Search\Models\" />
     <Folder Include="Areas\Search\Views\Shared\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>

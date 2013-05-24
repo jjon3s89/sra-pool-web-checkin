@@ -13,44 +13,49 @@
 <body>
     @using (Html.BeginForm("Search", "Search"))
     {
-    <div>
+        <div style="width:30em; margin:auto; text-align:center">
             <label>Please enter your Number</label>
             @Html.TextBox("SearchText")
             @Html.ValidationSummary(false, "Errors")
-            <button>Go</button>
+            <br />
+            <button style="width:10em">Go</button>
         </div>
     }
     @if (Model != null)
     {
         using (Html.BeginForm("Checkin", "Search"))
         {
-            <div style="clear:both">
+            <div class="container">
                 @Html.HiddenFor(m => m.Id)
-                @foreach (var sf in Model.ShareFamilies)
+                @foreach (var sf in Model.ShareFamilies.Where(sf=>sf.Active))
                 {
                     foreach (var p in sf.Family.People)
                     {
-                        <div style="border:1px black solid; clear: none; float: left; margin: 10px; height: 430px; width: 400px">
+                        <div style="border:1px black solid; clear: none; float: left; margin: 10px; height: 430px; width: 400px; overflow:hidden">
+                            <input type="checkbox" name="CheckinPeople" value="@p.Id" />&nbsp;
                             @if (p.Picture != null)
                             {
-                                <input type="checkbox" name="CheckinPeople" value="@p.Id" />
                                 @p.FirstName @p.LastName
                                 <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="400" width="400" class="person" />
                             }
                             else
                             {
                                 @p.FirstName @p.LastName
-                                <img src='~/Images/default_user_300x300.png' class="no-image"/>
+                                <img src='~/Images/default_user_300x300.png' class="no-image person" height="400" width="400" />
                             }
                         </div>
                     }
                 }
-                <br />
+                <div >
+                    <button style="width:10em">Checkin</button>
+                    <button style="width:10em" name="Guests" value="true">Checkin w/ Guests</button>
+                </div>
+
             </div>
-            <button>Checkin</button>
+        
         }
     }
-    @Scripts.Render("~/bundles/modernizr")
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryval")
@@ -62,6 +67,7 @@
             });
             $('img.no-image').parent().click(function (e) {
             });
+            $("button").button();
         });
     </script></body>
 </html>

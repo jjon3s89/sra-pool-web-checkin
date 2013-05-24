@@ -37,6 +37,7 @@ namespace WebPoolCheckin.Models
         public string InsurancePolicyNumber { get; set; }
         public Nullable<int> Family_Person { get; set; }
         public Nullable<int> FamilyMemberType_Person { get; set; }
+        public Nullable<bool> Is_Guest { get; set; }
     
         public virtual ICollection<Entry> Entries { get; set; }
         public virtual Family Family { get; set; }

@@ -95,6 +95,7 @@
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Time" Type="datetime" Nullable="false" />
     <Property Name="Entry_Person" Type="int" Nullable="false" />
+    <Property Name="Is_exit" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Families">
     <Key>
@@ -160,6 +161,7 @@
     <Property Name="InsurancePolicyNumber" Type="nvarchar" MaxLength="255" />
     <Property Name="Family_Person" Type="int" />
     <Property Name="FamilyMemberType_Person" Type="int" />
+    <Property Name="Is_Guest" Type="bit" />
   </EntityType>
   <EntityType Name="PoolAccesses">
     <Key>

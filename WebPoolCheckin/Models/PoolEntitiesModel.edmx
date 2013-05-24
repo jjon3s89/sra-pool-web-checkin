@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PoolDataEntitiesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PoolDataEntitiesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="PoolDataEntitiesModelStoreContainer">
           <EntitySet Name="Addresses" EntityType="PoolDataEntitiesModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Entries" EntityType="PoolDataEntitiesModel.Store.Entries" store:Type="Tables" Schema="dbo" />
@@ -100,6 +100,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Time" Type="datetime" Nullable="false" />
           <Property Name="Entry_Person" Type="int" Nullable="false" />
+          <Property Name="Is_exit" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Families">
           <Key>
@@ -165,6 +166,7 @@
           <Property Name="InsurancePolicyNumber" Type="nvarchar" MaxLength="255" />
           <Property Name="Family_Person" Type="int" />
           <Property Name="FamilyMemberType_Person" Type="int" />
+          <Property Name="Is_Guest" Type="bit" />
         </EntityType>
         <EntityType Name="PoolAccesses">
           <Key>
@@ -413,8 +415,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PoolDataEntitiesModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -517,6 +518,7 @@
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Entry_Person" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="PoolDataEntitiesModel.Entry_Person" FromRole="Entries" ToRole="People" />
+          <Property Type="Boolean" Name="Is_exit" Nullable="false" />
         </EntityType>
         <EntityType Name="Family">
           <Key>
@@ -595,6 +597,7 @@
           <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.Family_Person" FromRole="People" ToRole="Families" />
           <NavigationProperty Name="FamilyMemberType" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="People" ToRole="FamilyMemberTypes" />
           <NavigationProperty Name="Messages" Relationship="PoolDataEntitiesModel.Message_Person" FromRole="People" ToRole="Messages" />
+          <Property Type="Boolean" Name="Is_Guest" />
         </EntityType>
         <EntityType Name="PoolAccess">
           <Key>
@@ -878,6 +881,7 @@
           <EntitySetMapping Name="Entries">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Entry">
               <MappingFragment StoreEntitySet="Entries">
+                <ScalarProperty Name="Is_exit" ColumnName="Is_exit" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Entry_Person" ColumnName="Entry_Person" />
@@ -934,6 +938,7 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Person">
               <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="Is_Guest" ColumnName="Is_Guest" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

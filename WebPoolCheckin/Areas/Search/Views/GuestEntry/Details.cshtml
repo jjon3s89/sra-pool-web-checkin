@@ -1,0 +1,127 @@
+﻿@model WebPoolCheckin.Models.Person
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Person</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MiddleName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MiddleName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Birthday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Birthday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Gender)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HomePhone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomePhone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MobilePhone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobilePhone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WorkPhone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WorkPhone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EmergencyContact)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EmergencyContact)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EmergencyContactPhone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EmergencyContactPhone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InsuranceCompany)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InsuranceCompany)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InsurancePolicyNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InsurancePolicyNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Family.FamilyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Family.FamilyName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FamilyMemberType.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FamilyMemberType.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Is_Guest)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Is_Guest)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

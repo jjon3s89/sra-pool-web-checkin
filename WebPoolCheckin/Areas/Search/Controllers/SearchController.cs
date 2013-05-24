@@ -33,6 +33,11 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                 return View();
             }
             var share = from s in ctx.Shares where s.Id==shareId select s;
+            var activeShareFamilies = share.SelectMany(s=>s.ShareFamilies).Where(sf=>sf.Active);
+            if (activeShareFamilies.SelectMany(sf=>sf.Family.People).Any(p=>p.Picture == null ))
+            {
+
+            }
             return View(share.Single());
         }
 

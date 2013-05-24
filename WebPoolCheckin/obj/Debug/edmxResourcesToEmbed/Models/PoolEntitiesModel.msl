@@ -17,6 +17,7 @@
     <EntitySetMapping Name="Entries">
       <EntityTypeMapping TypeName="PoolDataEntitiesModel.Entry">
         <MappingFragment StoreEntitySet="Entries">
+          <ScalarProperty Name="Is_exit" ColumnName="Is_exit" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="Entry_Person" ColumnName="Entry_Person" />
@@ -73,6 +74,7 @@
     <EntitySetMapping Name="People">
       <EntityTypeMapping TypeName="PoolDataEntitiesModel.Person">
         <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="Is_Guest" ColumnName="Is_Guest" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
