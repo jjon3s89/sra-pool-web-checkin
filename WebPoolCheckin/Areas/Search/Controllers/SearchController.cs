@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebPoolCheckin.Models;
+using WebPoolCheckin.Areas.Search.Models;
 
 namespace WebPoolCheckin.Areas.Search.Controllers
 {
@@ -28,28 +29,43 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                 return View();
             }
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-            if(!ctx.Shares.Any(s=>s.Id==shareId)){
-                ModelState.AddModelError("ShareText", "Membership not Found");
+            if(!ctx.Shares.Any(s=>s.Id==shareId && s.Active==true)){
+                ModelState.AddModelError("ShareText", "Active Membership not Found");
                 return View();
             }
-            var share = from s in ctx.Shares where s.Id==shareId select s;
+            var share = from s in ctx.Shares where s.Id==shareId && s.Active==true select s;
             var activeShareFamilies = share.SelectMany(s=>s.ShareFamilies).Where(sf=>sf.Active);
             if (activeShareFamilies.SelectMany(sf=>sf.Family.People).Any(p=>p.Picture == null ))
             {
 
             }
-            return View(share.Single());
+            return View("Search",share.Single());
+        }
+        public ActionResult Checkin(int Id)
+        {
+                return Search(Id.ToString());
         }
 
         [HttpPost]
-        public ActionResult Checkin(int Id,int[] CheckinPeople)
+        public ActionResult Checkin(int Id, int[] CheckinPeople)
+        {
+            if (CheckinPeople == null || CheckinPeople.Length == 0)
+            {
+                return Search(Id.ToString());
+            }
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            var checkinPersonObjects = new List<Person>();
+            foreach (var pid in CheckinPeople)
+            {
+                checkinPersonObjects.Add(ctx.People.Single(p => p.Id == pid));
+            }
+            return View("ConfirmCheckin",checkinPersonObjects);
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmCheckin(int[] CheckinPeople)
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-            if (!ctx.Shares.Any(s => s.Id == Id))
-            {
-                ModelState.AddModelError("ShareText", "Membership not Found");
-                return View();
-            }
             foreach (var personid in CheckinPeople)
             {
                 var entry = new Entry()
@@ -61,6 +77,31 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             }
             ctx.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult CheckinGuests(int Id, int[] CheckinPeople)
+        {
+            var viewModel = new GuestCheckinViewModel();
+            viewModel.PersonIdList = CheckinPeople;
+            return View("AddGuest", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddCheckinGuest(int[] CheckinPeople, Person Person)
+        {
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            var refPersonId = CheckinPeople[0];
+            var refPerson = ctx.People.Single(p => p.Id == refPersonId);
+            Person.Is_Guest = true;
+            Person.Family = refPerson.Family;
+            var peopleList = CheckinPeople.ToList();
+            ctx.People.Add(Person);
+            ctx.SaveChanges();
+            peopleList.Add(Person.Id);
+            var viewModel = new GuestCheckinViewModel();
+            viewModel.PersonIdList = peopleList.ToArray();
+            return View("AddGuest", viewModel);
         }
 
         public ActionResult PersonImage(int? id)

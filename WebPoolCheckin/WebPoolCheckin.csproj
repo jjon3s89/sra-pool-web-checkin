@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Search\Models\GuestCheckinViewModel.cs" />
     <Compile Include="Areas\Search\SearchAreaRegistration.cs" />
     <Compile Include="Areas\Search\Controllers\SearchController.cs" />
     <Compile Include="Areas\Search\Views\GuestEntryController.cs" />
@@ -302,6 +303,10 @@
     <Content Include="Areas\Search\Views\GuestEntry\Create.cshtml" />
     <Content Include="Areas\Search\Views\GuestEntry\Edit.cshtml" />
     <Content Include="Areas\Search\Views\GuestEntry\Delete.cshtml" />
+    <Content Include="Areas\Search\Views\Shared\_Checkin.cshtml" />
+    <Content Include="Areas\Search\Views\Search\ConfirmCheckin.cshtml" />
+    <Content Include="Areas\Search\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Search\Views\Search\AddGuest.cshtml" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -336,8 +341,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Search\Models\" />
-    <Folder Include="Areas\Search\Views\Shared\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,30 @@
+﻿@model IList<WebPoolCheckin.Models.Person>
+
+<h2>Please confirm your selections</h2>
+
+@using(Html.BeginForm("ConfirmCheckin","Search")){
+    
+    <ul>
+    @{
+        var personArray = Model.ToArray();
+    for(int p=0; p < personArray.Length; p++)
+    {
+        var person = personArray[p];
+        @Html.Hidden("CheckinPeople["+p+"]", person.Id)
+        <li>@person.FirstName @person.LastName</li>
+    }
+    }
+    </ul>
+    <button>Confirm</button>
+    <button id="Cancel">Cancel</button>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#Cancel').button().click(
+                window.location="~/";
+            );
+        });
+    </script>
+}

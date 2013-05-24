@@ -1,0 +1,118 @@
+﻿@model WebPoolCheckin.Areas.Search.Models.GuestCheckinViewModel
+
+@{
+    ViewBag.Title = "Add Guest";
+}
+
+@using (Html.BeginForm("AddCheckinGuest","Search")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    for (int p = 0; p < Model.PersonIdList.Length; p++)
+    {
+        @Html.Hidden("CheckinPeople["+p+"]", Model.PersonIdList[p])
+    }
+
+    <fieldset>
+        <legend>Guest</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.FirstName)
+            @Html.ValidationMessageFor(model => model.Person.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.MiddleName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.MiddleName)
+            @Html.ValidationMessageFor(model => model.Person.MiddleName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.LastName)
+            @Html.ValidationMessageFor(model => model.Person.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.Birthday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.Birthday)
+            @Html.ValidationMessageFor(model => model.Person.Birthday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.Gender)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.Gender)
+            @Html.ValidationMessageFor(model => model.Person.Gender)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.Email)
+            @Html.ValidationMessageFor(model => model.Person.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.HomePhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.HomePhone)
+            @Html.ValidationMessageFor(model => model.Person.HomePhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.MobilePhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.MobilePhone)
+            @Html.ValidationMessageFor(model => model.Person.MobilePhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.WorkPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.WorkPhone)
+            @Html.ValidationMessageFor(model => model.Person.WorkPhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.EmergencyContact)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.EmergencyContact)
+            @Html.ValidationMessageFor(model => model.Person.EmergencyContact)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.EmergencyContactPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Person.EmergencyContactPhone)
+            @Html.ValidationMessageFor(model => model.Person.EmergencyContactPhone)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

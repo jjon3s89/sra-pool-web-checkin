@@ -1,65 +1,25 @@
 ﻿@model WebPoolCheckin.Models.Share
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Search</title>
-    
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/themes/base/css")
-    @Styles.Render("~/Content/bootstrap")
-</head>
-<body>
-    @using (Html.BeginForm("Search", "Search"))
-    {
-        <div style="width:30em; margin:auto; text-align:center">
-            <label>Please enter your Number</label>
-            @Html.TextBox("SearchText")
-            @Html.ValidationSummary(false, "Errors")
-            <br />
-            <button style="width:10em">Go</button>
-        </div>
-    }
-    @if (Model != null)
-    {
-        using (Html.BeginForm("Checkin", "Search"))
-        {
-            <div class="container">
-                @Html.HiddenFor(m => m.Id)
-                @foreach (var sf in Model.ShareFamilies.Where(sf=>sf.Active))
-                {
-                    foreach (var p in sf.Family.People)
-                    {
-                        <div style="border:1px black solid; clear: none; float: left; margin: 10px; height: 430px; width: 400px; overflow:hidden">
-                            <input type="checkbox" name="CheckinPeople" value="@p.Id" />&nbsp;
-                            @if (p.Picture != null)
-                            {
-                                @p.FirstName @p.LastName
-                                <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="400" width="400" class="person" />
-                            }
-                            else
-                            {
-                                @p.FirstName @p.LastName
-                                <img src='~/Images/default_user_300x300.png' class="no-image person" height="400" width="400" />
-                            }
-                        </div>
-                    }
-                }
-                <div >
-                    <button style="width:10em">Checkin</button>
-                    <button style="width:10em" name="Guests" value="true">Checkin w/ Guests</button>
-                </div>
+@{
+    ViewBag.Title = "Welcome to the Pool";
+}
 
-            </div>
-        
-        }
-    }
+@using (Html.BeginForm("Search", "Search"))
+{
+    <div style="width:30em; margin:auto; text-align:center">
+        <label>Please enter your Number</label>
+        @Html.TextBox("SearchText")
+        @Html.ValidationSummary(false)
+        <br />
+        <button style="width:10em">Go</button>
+        <button style="width:10em" id="clear">Clear</button>
+    </div>
+}
+@if(Model != null){
+    @Html.Partial("_Checkin");
+}
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
+@section scripts {
     <script type="text/javascript">
         $(function () {
             $('img.person').click(function (e) {
@@ -68,6 +28,17 @@
             $('img.no-image').parent().click(function (e) {
             });
             $("button").button();
+
+            $('#guests').click(function (e) {
+                e.preventDefault();
+                $('#guests').parents('form').attr('action', '@Url.Action("CheckinGuests","Search")');
+                $('#guests').parents('form').submit();
+            });
+
+            $('#clear').click(function (e) {
+                e.preventDefault();
+                window.location = "../..";
+            });
         });
-    </script></body>
-</html>
+    </script>
+}

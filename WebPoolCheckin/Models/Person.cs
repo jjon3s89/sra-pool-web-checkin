@@ -11,17 +11,24 @@ namespace WebPoolCheckin.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class Person
     {
         public Person()
         {
+            this.Is_Guest = false;
             this.Entries = new HashSet<Entry>();
             this.Messages = new HashSet<Message>();
         }
     
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; internal set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public byte[] Picture { get; set; }
         public string MiddleName { get; set; }

@@ -576,7 +576,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="LastName" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -597,7 +597,7 @@
           <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.Family_Person" FromRole="People" ToRole="Families" />
           <NavigationProperty Name="FamilyMemberType" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="People" ToRole="FamilyMemberTypes" />
           <NavigationProperty Name="Messages" Relationship="PoolDataEntitiesModel.Message_Person" FromRole="People" ToRole="Messages" />
-          <Property Type="Boolean" Name="Is_Guest" />
+          <Property Type="Boolean" Name="Is_Guest" DefaultValue="false" />
         </EntityType>
         <EntityType Name="PoolAccess">
           <Key>
