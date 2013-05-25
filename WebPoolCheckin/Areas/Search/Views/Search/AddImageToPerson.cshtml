@@ -1,0 +1,51 @@
+﻿@model WebPoolCheckin.Models.Person
+
+@{
+    ViewBag.Title = "Add Image";
+}
+
+@using (Html.BeginForm("AddImageToPerson","Search",FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Hidden("Id", Model.Family.ShareFamilies.Single(sf=>sf.Active).Share.Id)
+    @Html.Hidden("PersonId", Model.Id)
+
+    <fieldset class="container">
+        <legend>Add Image</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Picture)
+        </div>
+        <div class="editor-field">
+            <input type="file" name="picture" />
+            @Html.ValidationMessageFor(model => model.Picture)
+        </div>
+        <p>
+            <input type="submit" value="Upload" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Cancel", "Index")
+</div>
+<br />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -11,7 +11,12 @@
     {
         var person = personArray[p];
         @Html.Hidden("CheckinPeople["+p+"]", person.Id)
-        <li>@person.FirstName @person.LastName</li>
+        <li>@person.FirstName @person.LastName (
+            @if(person.Is_Guest.HasValue && person.Is_Guest.Value){
+                @:Guest
+            }else{
+                @:Member
+            })</li>
     }
     }
     </ul>

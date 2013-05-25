@@ -19,11 +19,15 @@ namespace WebPoolCheckin.Areas.Search.Controllers
         {
             return View("Search");
         }
-        [HttpPost]
+        
         public ActionResult Search(String searchText)
         {
-            int shareId;
-            if (!Int32.TryParse(searchText, out shareId))
+            if (String.IsNullOrWhiteSpace(searchText))
+            {
+                return View();
+            }
+            int shareId = -1;
+            if (searchText.Length > 0 && !Int32.TryParse(searchText, out shareId))
             {
                 ModelState.AddModelError("ShareText", "Entry must be numerical");
                 return View();
@@ -41,12 +45,6 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             }
             return View("Search",share.Single());
         }
-        public ActionResult Checkin(int Id)
-        {
-                return Search(Id.ToString());
-        }
-
-        [HttpPost]
         public ActionResult Checkin(int Id, int[] CheckinPeople)
         {
             if (CheckinPeople == null || CheckinPeople.Length == 0)
@@ -82,26 +80,123 @@ namespace WebPoolCheckin.Areas.Search.Controllers
         [HttpPost]
         public ActionResult CheckinGuests(int Id, int[] CheckinPeople)
         {
+            if (CheckinPeople == null || CheckinPeople.Length == 0)
+            {
+                return Search(Id.ToString());
+            } 
             var viewModel = new GuestCheckinViewModel();
+            viewModel.Id = Id;
             viewModel.PersonIdList = CheckinPeople;
             return View("AddGuest", viewModel);
         }
 
         [HttpPost]
-        public ActionResult AddCheckinGuest(int[] CheckinPeople, Person Person)
+        public ActionResult AddCheckinGuest(int Id, int[] CheckinPeople, Person Person, HttpPostedFileBase picture)
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
             var refPersonId = CheckinPeople[0];
             var refPerson = ctx.People.Single(p => p.Id == refPersonId);
-            Person.Is_Guest = true;
+            if(!Person.Is_Guest.HasValue){
+                Person.Is_Guest = true;
+            }
             Person.Family = refPerson.Family;
             var peopleList = CheckinPeople.ToList();
-            ctx.People.Add(Person);
-            ctx.SaveChanges();
-            peopleList.Add(Person.Id);
+            if (picture != null && picture.ContentLength > 0)
+            {
+                try{
+                    var img = Image.FromStream(picture.InputStream);
+                    if (img.Height > 400 || img.Width > 400)
+                    {
+                        Size size = new Size();
+                        if(img.Size.Height > img.Size.Width){
+                            size.Height = 400;
+                            size.Width = (int)(img.Size.Width * (400.0 / img.Size.Height));
+                        }else{
+                            size.Width = 400;
+                            size.Height = (int)(img.Size.Height * (400.0 / img.Size.Width));
+                        }
+                        img = new Bitmap(img, size);
+                    }
+                    var ms = new System.IO.MemoryStream();
+                    img.Save(ms,System.Drawing.Imaging.ImageFormat.Jpeg);
+                    Person.Picture = ms.ToArray();
+                }catch(Exception e){
+                    ModelState.AddModelError("Person.Picture","Unknown error with image " + e.Message);
+                }
+            }
             var viewModel = new GuestCheckinViewModel();
-            viewModel.PersonIdList = peopleList.ToArray();
-            return View("AddGuest", viewModel);
+            if (ModelState.IsValid)
+            {
+                ctx.People.Add(Person);
+                ctx.SaveChanges();
+                peopleList.Add(Person.Id);
+                viewModel.PersonIdList = peopleList.ToArray();
+                viewModel.Person = new Person();
+                ModelState.Clear();
+            }
+            else
+            {
+                viewModel.PersonIdList = CheckinPeople;
+                viewModel.Person = Person;
+            }
+            viewModel.Id = Id;
+            if (ModelState.IsValid && Request.Form.AllKeys.Contains("checkin"))
+            {
+                return Checkin(Id, viewModel.PersonIdList);
+            }else{
+                return View("AddGuest", viewModel);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult AddImageToPerson(int Id, int PersonId)
+        {
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            var Person = ctx.People.Single(p => p.Id == PersonId);
+            return View("AddImageToPerson",Person);
+        }
+
+        [HttpPost]
+        public ActionResult AddImageToPerson(int Id, int PersonId,HttpPostedFileBase picture){
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            if (picture != null && picture.ContentLength > 0)
+            {
+                var Person = ctx.People.Single(p => p.Id == PersonId);
+                try
+                {
+                    var img = Image.FromStream(picture.InputStream);
+                    if (img.Height > 400 || img.Width > 400)
+                    {
+                        Size size = new Size();
+                        if (img.Size.Height > img.Size.Width)
+                        {
+                            size.Height = 400;
+                            size.Width = (int)(img.Size.Width * (400.0 / img.Size.Height));
+                        }
+                        else
+                        {
+                            size.Width = 400;
+                            size.Height = (int)(img.Size.Height * (400.0 / img.Size.Width));
+                        }
+                        img = new Bitmap(img, size);
+                    }
+                    var ms = new System.IO.MemoryStream();
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    Person.Picture = ms.ToArray();
+                    ctx.SaveChanges();
+                    return Search(Id.ToString());
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("Picture", "Unknown error with image: " + e.Message);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("Picture","Select an image to upload");
+            }
+            return AddImageToPerson(Id, PersonId);
+
         }
 
         public ActionResult PersonImage(int? id)

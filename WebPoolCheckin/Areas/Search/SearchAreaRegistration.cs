@@ -17,7 +17,7 @@ namespace WebPoolCheckin.Areas.Search
             context.MapRoute(
                 "Search_default",
                 "Search/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller="Search", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

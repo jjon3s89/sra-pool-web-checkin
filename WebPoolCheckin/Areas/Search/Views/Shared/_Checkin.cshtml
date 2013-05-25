@@ -13,20 +13,23 @@
                     <input type="checkbox" name="CheckinPeople" value="@p.Id" />&nbsp;
                     @if (p.Picture != null)
                     {
-                        @p.FirstName @p.LastName
-                        <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="400" width="400" class="person" />
+                        @:@p.FirstName @p.LastName
+                        <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image" class="button">(Change Picture)</a>
+                       <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="400" width="400" class="person" />
                     }
                     else
                     {
-                        @p.FirstName @p.LastName
-                        <img src='~/Images/default_user_300x300.png' class="no-image person" height="400" width="400" />
+                        <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">
+                            @p.FirstName @p.LastName
+                            <img src='~/Images/default_user_300x300.png' class="no-image" height="400" width="400" />
+                        </a>
                     }
                 </div>
             }
             if(sf.Family.People.Any(p=>p.Is_Guest.HasValue && p.Is_Guest.Value)){
                 <div style="border:1px blue solid; clear: none; float: left; margin: 10px; height: 430px; width: 400px; overflow:hidden">
                     <h4>Previous Guests</h4>
-                    <select name="CheckinPeople" multiple="multiple">
+                    <select name="CheckinPeople" multiple="multiple" size="6">
                         @foreach (var p in sf.Family.People.Where(p=>p.Is_Guest.HasValue && p.Is_Guest.Value))
                         {
                             <option value="@p.Id">@p.FirstName @p.LastName</option>
@@ -37,7 +40,7 @@
         }
         <div >
             <button style="width:10em">Checkin</button>
-            <button style="width:10em" name="guests" id="guests" value="true">Checkin w/ Guests</button>
+            <button style="width:10em" name="guests" id="guests" value="true">Checkin w/ New Guests</button>
         </div>
 
     </div>
