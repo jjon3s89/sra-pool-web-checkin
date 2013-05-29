@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Search\Models\GuestCheckinViewModel.cs" />
     <Compile Include="Areas\Search\SearchAreaRegistration.cs" />
     <Compile Include="Areas\Search\Controllers\SearchController.cs" />
@@ -306,16 +307,12 @@
       <DependentUpon>PoolEntitiesModel.edmx</DependentUpon>
       <LastGenOutput>PoolEntitiesModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Search\Views\GuestEntry\Index.cshtml" />
-    <Content Include="Areas\Search\Views\GuestEntry\Details.cshtml" />
-    <Content Include="Areas\Search\Views\GuestEntry\Create.cshtml" />
-    <Content Include="Areas\Search\Views\GuestEntry\Edit.cshtml" />
-    <Content Include="Areas\Search\Views\GuestEntry\Delete.cshtml" />
     <Content Include="Areas\Search\Views\Shared\_Checkin.cshtml" />
     <Content Include="Areas\Search\Views\Search\ConfirmCheckin.cshtml" />
     <Content Include="Areas\Search\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Search\Views\Search\AddGuest.cshtml" />
     <Content Include="Areas\Search\Views\Search\AddImageToPerson.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -350,6 +347,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>

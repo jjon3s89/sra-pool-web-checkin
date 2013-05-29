@@ -8,7 +8,7 @@
 {
     <div style="width:30em; margin:auto; text-align:center">
         <label>Please enter your Number</label>
-        @Html.TextBox("SearchText")
+        @Html.Password("SearchText")
         @Html.ValidationSummary(false)
         <br />
         <button style="width:10em">Go</button>
@@ -26,7 +26,6 @@
                 $(this).parent().children('input[type="checkbox"]').click();
             });
             $("button").button();
-            $("#button").button();
 
             $('#guests').click(function (e) {
                 e.preventDefault();

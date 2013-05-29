@@ -39,10 +39,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             }
             var share = from s in ctx.Shares where s.Id==shareId && s.Active==true select s;
             var activeShareFamilies = share.SelectMany(s=>s.ShareFamilies).Where(sf=>sf.Active);
-            if (activeShareFamilies.SelectMany(sf=>sf.Family.People).Any(p=>p.Picture == null ))
-            {
-
-            }
+            
             return View("Search",share.Single());
         }
         public ActionResult Checkin(int Id, int[] CheckinPeople)
@@ -110,10 +107,10 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                         Size size = new Size();
                         if(img.Size.Height > img.Size.Width){
                             size.Height = 400;
-                            size.Width = (int)(img.Size.Width * (400.0 / img.Size.Height));
+                            size.Width = (int)(img.Size.Width * (200.0 / img.Size.Height));
                         }else{
                             size.Width = 400;
-                            size.Height = (int)(img.Size.Height * (400.0 / img.Size.Width));
+                            size.Height = (int)(img.Size.Height * (200.0 / img.Size.Width));
                         }
                         img = new Bitmap(img, size);
                     }
@@ -171,12 +168,12 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                         if (img.Size.Height > img.Size.Width)
                         {
                             size.Height = 400;
-                            size.Width = (int)(img.Size.Width * (400.0 / img.Size.Height));
+                            size.Width = (int)(img.Size.Width * (200.0 / img.Size.Height));
                         }
                         else
                         {
                             size.Width = 400;
-                            size.Height = (int)(img.Size.Height * (400.0 / img.Size.Width));
+                            size.Height = (int)(img.Size.Height * (200.0 / img.Size.Width));
                         }
                         img = new Bitmap(img, size);
                     }
