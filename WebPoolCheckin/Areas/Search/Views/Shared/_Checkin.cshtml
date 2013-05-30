@@ -1,47 +1,49 @@
 ﻿@model WebPoolCheckin.Models.Share
 
 
-@using (Html.BeginForm("Checkin", "Search"))
+@using (Html.BeginForm("Checkin", "Search", FormMethod.Post, new { @class = "form-inline", id="checkin-form" }))
 {
     <div class="container">
         @Html.HiddenFor(m => m.Id)
-        @foreach (var sf in Model.ShareFamilies.Where(sf=>sf.Active))
+        @foreach (var sf in Model.ShareFamilies.Where(sf => sf.Active))
         {
-            foreach (var p in sf.Family.People.Where(p=>!p.Is_Guest.HasValue || !p.Is_Guest.Value))
+            foreach (var p in sf.Family.People.Where(p => !p.Is_Guest.HasValue || !p.Is_Guest.Value))
             {
                 <div style="border:1px black solid; clear: none; float: left; margin: 10px; height: 230px; width: 200px; overflow:hidden">
                     <input type="checkbox" name="CheckinPeople" value="@p.Id" />&nbsp;
                     @if (p.Picture != null)
                     {
-                        @:@p.FirstName @p.LastName
+                        <span class="person-name">@p.FirstName @p.LastName</span>
                         <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">(Change Picture)</a>
-                        <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="200" width="200" class="person" />
+                        <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="200" width="200" class="person img-rounded" />
                     }
                     else
                     {
                         <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">
-                            @p.FirstName @p.LastName
-                            <img src='~/Images/default_user_300x300.png' class="no-image" height="200" width="200" />
+                            <span class="person-name">@p.FirstName @p.LastName</span>
+                            <img src='~/Images/default_user_300x300.png' class="no-image img-rounded" height="200" width="200" />
                         </a>
                     }
-                    <button class="delete">Delete</button>
+                    <button name="delete" class="delete btn btn-danger" value="@p.Id"><i class="icon-trash"></i> Remove</button>
                 </div>
             }
-            if(sf.Family.People.Any(p=>p.Is_Guest.HasValue && p.Is_Guest.Value)){
+            if (sf.Family.People.Any(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
+            {
                 <div style="border:1px blue solid; clear: none; float: left; margin: 10px; height: 230px; width: 200px; overflow:hidden">
                     <h4>Previous Guests</h4>
                     <select name="CheckinPeople" multiple="multiple" size="6">
-                        @foreach (var p in sf.Family.People.Where(p=>p.Is_Guest.HasValue && p.Is_Guest.Value))
+                        @foreach (var p in sf.Family.People.Where(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
                         {
                             <option value="@p.Id">@p.FirstName @p.LastName</option>
                         }
                     </select>
+                    <button name="edit-family-guests" class="delete btn btn-danger" value="@sf.Family.Id"><i class="icon-edit"></i> Edit List</button>
                 </div>
             }
         }
-        <div >
-            <button style="width:10em">Checkin</button>
-            <button style="width:10em" name="guests" id="guests" value="true">Checkin w/ New Guests</button>
+        <div class="" style="clear:both; float:none; width:30em; margin:auto; text-align:center">
+            <button style="width:10em" class="btn btn-primary">Checkin</button>
+            <button style="width:10em" name="guests" id="guests" value="true" class="btn">Checkin w/ New Guests</button>
         </div>
 
     </div>

@@ -10,6 +10,12 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
+    @if(TempData["success"] != null) { 
+      <div id="SuccessMessage" class="alert text-success fade in">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+          @Html.Encode(TempData["success"])
+      </div>
+    }
     @RenderBody()
     
     @Scripts.Render("~/bundles/jquery")
@@ -17,6 +23,10 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {$("#SuccessMessage").alert("close")},4000);
+        });
+    </script>
 </body>
 </html>

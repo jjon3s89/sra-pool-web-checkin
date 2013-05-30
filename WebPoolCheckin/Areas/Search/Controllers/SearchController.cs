@@ -71,6 +71,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                 ctx.Entries.Add(entry);
             }
             ctx.SaveChanges();
+            TempData["success"] = "Successfully checked In";
             return RedirectToAction("Index");
         }
 
@@ -102,14 +103,14 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             {
                 try{
                     var img = Image.FromStream(picture.InputStream);
-                    if (img.Height > 400 || img.Width > 400)
+                    if (img.Height > 200 || img.Width > 200)
                     {
                         Size size = new Size();
                         if(img.Size.Height > img.Size.Width){
-                            size.Height = 400;
+                            size.Height = 200;
                             size.Width = (int)(img.Size.Width * (200.0 / img.Size.Height));
                         }else{
-                            size.Width = 400;
+                            size.Width = 200;
                             size.Height = (int)(img.Size.Height * (200.0 / img.Size.Width));
                         }
                         img = new Bitmap(img, size);
@@ -129,6 +130,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                 peopleList.Add(Person.Id);
                 viewModel.PersonIdList = peopleList.ToArray();
                 viewModel.Person = new Person();
+                TempData["success"] = "Added new guest";
                 ModelState.Clear();
             }
             else
@@ -162,17 +164,17 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                 try
                 {
                     var img = Image.FromStream(picture.InputStream);
-                    if (img.Height > 400 || img.Width > 400)
+                    if (img.Height > 200 || img.Width > 200)
                     {
                         Size size = new Size();
                         if (img.Size.Height > img.Size.Width)
                         {
-                            size.Height = 400;
+                            size.Height = 200;
                             size.Width = (int)(img.Size.Width * (200.0 / img.Size.Height));
                         }
                         else
                         {
-                            size.Width = 400;
+                            size.Width = 200;
                             size.Height = (int)(img.Size.Height * (200.0 / img.Size.Width));
                         }
                         img = new Bitmap(img, size);
@@ -181,6 +183,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                     img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                     Person.Picture = ms.ToArray();
                     ctx.SaveChanges();
+                    TempData["success"] = "Successfully saved person image";
                     return Search(Id.ToString());
                 }
                 catch (Exception e)
@@ -194,6 +197,23 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             }
             return AddImageToPerson(Id, PersonId);
 
+        }
+
+        [HttpPost]
+        public ActionResult ArchivePerson(int? id, int? delete)
+        {
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            if (!ctx.People.Any(s => s.Id == delete))
+            {
+                return Index();
+            }
+            var person = ctx.People.Single(s => s.Id == delete);
+            var family = person.Family;
+            person.Family = null;
+            family.People.Remove(person);
+            ctx.SaveChanges();
+            TempData["success"] = "Successfully archived person";
+            return Search(id.ToString());
         }
 
         public ActionResult PersonImage(int? id)
