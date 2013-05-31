@@ -29,15 +29,15 @@ namespace WebPoolCheckin.Models
         public DbSet<Entry> Entries { get; set; }
         public DbSet<Family> Families { get; set; }
         public DbSet<FamilyMemberType> FamilyMemberTypes { get; set; }
-        public DbSet<Membership> Memberships { get; set; }
-        public DbSet<Message> Messages { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<PoolAccess> PoolAccesses { get; set; }
-        public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<ShareFamily> ShareFamilies { get; set; }
         public DbSet<ShareOwnerType> ShareOwnerTypes { get; set; }
         public DbSet<Share> Shares { get; set; }
         public DbSet<ShareUserType> ShareUserTypes { get; set; }
         public DbSet<Street> Streets { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeTime> EmployeeTimes { get; set; }
+        public DbSet<HourlyCounts> HourlyCounts { get; set; }
     }
 }

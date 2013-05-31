@@ -13,14 +13,14 @@
                     <input type="checkbox" name="CheckinPeople" value="@p.Id" />&nbsp;
                     @if (p.Picture != null)
                     {
-                        <span class="person-name">@p.FirstName @p.LastName</span>
+                        <span class="person-name">@p.FullName</span>
                         <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">(Change Picture)</a>
                         <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="200" width="200" class="person img-rounded" />
                     }
                     else
                     {
                         <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">
-                            <span class="person-name">@p.FirstName @p.LastName</span>
+                            <span class="person-name">@p.FullName</span>
                             <img src='~/Images/default_user_300x300.png' class="no-image img-rounded" height="200" width="200" />
                         </a>
                     }
@@ -34,10 +34,10 @@
                     <select name="CheckinPeople" multiple="multiple" size="6">
                         @foreach (var p in sf.Family.People.Where(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
                         {
-                            <option value="@p.Id">@p.FirstName @p.LastName</option>
+                            <option value="@p.Id">@p.FullName</option>
                         }
                     </select>
-                    <button name="edit-family-guests" class="delete btn btn-danger" value="@sf.Family.Id"><i class="icon-edit"></i> Edit List</button>
+                    <button name="edit-family-guests" id="edit-family-guests" class="edit-guests btn btn-info" value="@sf.Family.Id"><i class="icon-edit"></i> Edit List</button>
                 </div>
             }
         }

@@ -44,6 +44,11 @@
                 }
             });
 
+            $('#edit-family-guests').click(function (e) {
+                e.preventDefault();
+                window.location = '@Url.Action("EditFamilyGuestList")/' + this.value;
+            });
+
             $('#clear').click(function (e) {
                 e.preventDefault();
                 window.location = "/Search/Search";

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WebPoolCheckin.Models.HourlyCounts>
+
+@{
+    ViewBag.Title = "Hourly";
+}
+
+<h2>Hourly</h2>
+<p><a href="~/">Return Home</a></p>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EntryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HourSlot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EntryCount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EntryDate,"ShortDateTime")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HourSlot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EntryCount)
+        </td>
+    </tr>
+}
+
+</table>

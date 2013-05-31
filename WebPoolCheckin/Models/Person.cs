@@ -11,8 +11,6 @@ namespace WebPoolCheckin.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class Person
     {
@@ -20,15 +18,10 @@ namespace WebPoolCheckin.Models
         {
             this.Is_Guest = false;
             this.Entries = new HashSet<Entry>();
-            this.Messages = new HashSet<Message>();
         }
     
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; internal set; }
-        [Required]
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
         public byte[] Picture { get; set; }
         public string MiddleName { get; set; }
@@ -49,6 +42,5 @@ namespace WebPoolCheckin.Models
         public virtual ICollection<Entry> Entries { get; set; }
         public virtual Family Family { get; set; }
         public virtual FamilyMemberType FamilyMemberType { get; set; }
-        public virtual ICollection<Message> Messages { get; set; }
     }
 }

@@ -133,6 +133,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Report\Controllers\ReportController.cs" />
+    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Areas\Search\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Search\Models\GuestCheckinViewModel.cs" />
     <Compile Include="Areas\Search\SearchAreaRegistration.cs" />
     <Compile Include="Areas\Search\Controllers\SearchController.cs" />
@@ -144,6 +148,12 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeTime.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entry.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
@@ -153,12 +163,10 @@
     <Compile Include="Models\FamilyMemberType.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Membership.cs">
+    <Compile Include="Models\HourlyCounts.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Message.cs">
-      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Metadata\EmployeeMetadata.cs" />
     <Compile Include="Models\Person.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
@@ -180,9 +188,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PoolEntitiesModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\RolePermission.cs">
-      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Share.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
@@ -198,6 +203,7 @@
     <Compile Include="Models\Street.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Metadata\PersonMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +319,21 @@
     <Content Include="Areas\Search\Views\Search\AddGuest.cshtml" />
     <Content Include="Areas\Search\Views\Search\AddImageToPerson.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Report\Views\Web.config" />
+    <Content Include="Areas\Report\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Search\Views\Search\EditFamilyGuestList.cshtml" />
+    <Content Include="Areas\Report\Views\Report\Hourly.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Delete.cshtml" />
+    <Content Include="Areas\Search\Views\Employee\Index.cshtml" />
+    <Content Include="Areas\Search\Views\Employee\Details.cshtml" />
+    <Content Include="Areas\Search\Views\Employee\Create.cshtml" />
+    <Content Include="Areas\Search\Views\Employee\Edit.cshtml" />
+    <Content Include="Areas\Search\Views\Employee\Delete.cshtml" />
+    <Content Include="Areas\Search\Views\Employee\Checkin.cshtml" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -344,12 +365,15 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Search\Views\Search\Search.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ShortDateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Report\Models\" />
+    <Folder Include="Areas\Report\Views\Shared\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>

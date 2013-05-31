@@ -12,9 +12,13 @@ namespace WebPoolCheckin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RolePermission
+    public partial class EmployeeTime
     {
-        public string RoleName { get; set; }
-        public string PermissionId { get; set; }
+        public int EmployeeId { get; set; }
+        public bool Entry { get; set; }
+        public System.DateTime Time { get; set; }
+        public int Id { get; set; }
+    
+        public virtual Employee Employee { get; set; }
     }
 }

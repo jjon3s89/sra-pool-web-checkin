@@ -1,0 +1,35 @@
+﻿@model WebPoolCheckin.Models.Employee
+
+@{
+    ViewBag.Title = "Checkin";
+}
+<div class="container">
+<h2>Checkin</h2>
+
+<fieldset>
+    <legend>Employee</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm("EmployeeCheckedIn", "Employee", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.Hidden("id",Model.Id)
+    <div class="btn-group">
+        <button name="IsEntry" value="true" class="btn btn-success">Check In</button>
+        <button name="IsEntry" value="false" class="btn btn-danger">Check Out</button>
+    </div>
+}
+</div>

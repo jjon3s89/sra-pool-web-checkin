@@ -32,8 +32,16 @@ namespace WebPoolCheckin.Areas.Search.Controllers
                 ModelState.AddModelError("ShareText", "Entry must be numerical");
                 return View();
             }
+            if (shareId == 99999)
+            {
+                return Redirect("~/Report");
+            }
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
             if(!ctx.Shares.Any(s=>s.Id==shareId && s.Active==true)){
+                if (ctx.Employees.Any(e => e.Id == shareId && e.Active == true))
+                {
+                    return RedirectToAction("Checkin", "Employee", new { id = shareId });
+                }
                 ModelState.AddModelError("ShareText", "Active Membership not Found");
                 return View();
             }
@@ -46,6 +54,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
         {
             if (CheckinPeople == null || CheckinPeople.Length == 0)
             {
+                ModelState.AddModelError("CheckinPeople","You must select a member to check in");
                 return Search(Id.ToString());
             }
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
@@ -54,7 +63,12 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             {
                 checkinPersonObjects.Add(ctx.People.Single(p => p.Id == pid));
             }
-            return View("ConfirmCheckin",checkinPersonObjects);
+            if (!checkinPersonObjects.Any(p=>!p.Is_Guest.HasValue || !p.Is_Guest.Value))
+            {
+                ModelState.AddModelError("CheckinPeople", "You must select a member to check in");
+                return Search(Id.ToString());
+            }
+            return View("ConfirmCheckin", checkinPersonObjects);
         }
 
         [HttpPost]
@@ -205,7 +219,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
             if (!ctx.People.Any(s => s.Id == delete))
             {
-                return Index();
+                return RedirectToAction("Index");
             }
             var person = ctx.People.Single(s => s.Id == delete);
             var family = person.Family;
@@ -216,18 +230,47 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             return Search(id.ToString());
         }
 
+
+        [HttpPost]
+        public ActionResult ArchiveGuest(int? Id)
+        {
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            if (!ctx.People.Any(s => s.Id == Id && s.Is_Guest.HasValue && s.Is_Guest.Value))
+            {
+                return RedirectToAction("Index");
+            }
+            var person = ctx.People.Single(s => s.Id == Id && s.Is_Guest.HasValue && s.Is_Guest.Value);
+            var family = person.Family;
+            person.Family = null;
+            family.People.Remove(person);
+            ctx.SaveChanges();
+            TempData["success"] = "Successfully archived guest";
+            return new JsonResult() { Data = new { Success = true } };
+        }
+
         public ActionResult PersonImage(int? id)
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
             if (!ctx.People.Any(s => s.Id == id))
             {
-                return null;
+                return HttpNotFound();
             }
             var person = ctx.People.Single(s => s.Id == id);
             //var ms = new System.IO.MemoryStream(person.Picture);
             //var img = Image.FromStream(ms);
             
             return new FileContentResult(person.Picture, "image/jpeg");
+        }
+
+        [HttpGet]
+        public ActionResult EditFamilyGuestList(int? id)
+        {
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            if (!ctx.Families.Any(f => f.Id == id))
+            {
+                return RedirectToAction("Index");
+            }
+            return View(ctx.Families.Single(f => f.Id == id));
         }
     }
 }

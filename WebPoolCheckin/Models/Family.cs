@@ -17,7 +17,6 @@ namespace WebPoolCheckin.Models
         public Family()
         {
             this.People = new HashSet<Person>();
-            this.Messages = new HashSet<Message>();
             this.PoolAccesses = new HashSet<PoolAccess>();
             this.ShareFamilies = new HashSet<ShareFamily>();
         }
@@ -34,7 +33,6 @@ namespace WebPoolCheckin.Models
         public virtual Address Address { get; set; }
         public virtual ICollection<Person> People { get; set; }
         public virtual ShareUserType ShareUserType { get; set; }
-        public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<PoolAccess> PoolAccesses { get; set; }
         public virtual ICollection<ShareFamily> ShareFamilies { get; set; }
     }

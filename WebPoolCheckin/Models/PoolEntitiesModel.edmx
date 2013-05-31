@@ -7,19 +7,25 @@
     <Schema Namespace="PoolDataEntitiesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="PoolDataEntitiesModelStoreContainer">
           <EntitySet Name="Addresses" EntityType="PoolDataEntitiesModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Employee" EntityType="PoolDataEntitiesModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmployeeTime" EntityType="PoolDataEntitiesModel.Store.EmployeeTime" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Entries" EntityType="PoolDataEntitiesModel.Store.Entries" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Families" EntityType="PoolDataEntitiesModel.Store.Families" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FamilyMemberTypes" EntityType="PoolDataEntitiesModel.Store.FamilyMemberTypes" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Memberships" EntityType="PoolDataEntitiesModel.Store.Memberships" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Messages" EntityType="PoolDataEntitiesModel.Store.Messages" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="People" EntityType="PoolDataEntitiesModel.Store.People" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PoolAccesses" EntityType="PoolDataEntitiesModel.Store.PoolAccesses" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RolePermissions" EntityType="PoolDataEntitiesModel.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ShareFamilies" EntityType="PoolDataEntitiesModel.Store.ShareFamilies" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ShareOwnerTypes" EntityType="PoolDataEntitiesModel.Store.ShareOwnerTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Shares" EntityType="PoolDataEntitiesModel.Store.Shares" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ShareUserTypes" EntityType="PoolDataEntitiesModel.Store.ShareUserTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Streets" EntityType="PoolDataEntitiesModel.Store.Streets" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Hourly_Counts" EntityType="PoolDataEntitiesModel.Store.Hourly_Counts" store:Type="Views" store:Schema="dbo" store:Name="Hourly_Counts">
+            <DefiningQuery>SELECT 
+      [Hourly_Counts].[entry_date] AS [entry_date], 
+      [Hourly_Counts].[hour_slot] AS [hour_slot], 
+      [Hourly_Counts].[entry_count] AS [entry_count]
+      FROM [dbo].[Hourly_Counts] AS [Hourly_Counts]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="Address_Street" Association="PoolDataEntitiesModel.Store.Address_Street">
             <End Role="Streets" EntitySet="Streets" />
             <End Role="Addresses" EntitySet="Addresses" />
@@ -44,13 +50,9 @@
             <End Role="FamilyMemberTypes" EntitySet="FamilyMemberTypes" />
             <End Role="People" EntitySet="People" />
           </AssociationSet>
-          <AssociationSet Name="Message_Family" Association="PoolDataEntitiesModel.Store.Message_Family">
-            <End Role="Families" EntitySet="Families" />
-            <End Role="Messages" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="Message_Person" Association="PoolDataEntitiesModel.Store.Message_Person">
-            <End Role="People" EntitySet="People" />
-            <End Role="Messages" EntitySet="Messages" />
+          <AssociationSet Name="FK_Employee_EmployeeTime" Association="PoolDataEntitiesModel.Store.FK_Employee_EmployeeTime">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeTime" EntitySet="EmployeeTime" />
           </AssociationSet>
           <AssociationSet Name="PoolAccess_Family" Association="PoolDataEntitiesModel.Store.PoolAccess_Family">
             <End Role="Families" EntitySet="Families" />
@@ -93,6 +95,27 @@
           <Property Name="HouseNumber" Type="smallint" />
           <Property Name="Address_Street" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="EmployeeType" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Picture" Type="varbinary(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="Entry" Type="bit" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="Entries">
           <Key>
             <PropertyRef Name="Id" />
@@ -122,28 +145,6 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="Memberships">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Messages">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Subject" Type="nvarchar" MaxLength="255" />
-          <Property Name="Body" Type="nvarchar" MaxLength="255" />
-          <Property Name="Sent" Type="datetime" />
-          <Property Name="Read" Type="datetime" />
-          <Property Name="From" Type="nvarchar" MaxLength="255" />
-          <Property Name="ReplyPhone" Type="nvarchar" MaxLength="255" />
-          <Property Name="ReplyEmail" Type="nvarchar" MaxLength="255" />
-          <Property Name="Display" Type="nvarchar" MaxLength="255" />
-          <Property Name="Message_Family" Type="int" />
-          <Property Name="Message_Person" Type="int" />
         </EntityType>
         <EntityType Name="People">
           <Key>
@@ -177,14 +178,6 @@
           <Property Name="PoolAccess_ShareOwnerType" Type="int" />
           <Property Name="PoolAccess_ShareUserType" Type="int" />
           <Property Name="PoolAccess_Family" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RolePermissions">
-          <Key>
-            <PropertyRef Name="RoleName" />
-            <PropertyRef Name="PermissionId" />
-          </Key>
-          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="PermissionId" Type="nvarchar" Nullable="false" MaxLength="322" />
         </EntityType>
         <EntityType Name="ShareFamilies">
           <Key>
@@ -228,6 +221,17 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.Hourly_Counts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Hourly_Counts">
+          <Key>
+            <PropertyRef Name="entry_date" />
+          </Key>
+          <Property Name="entry_date" Type="datetime" Nullable="false" />
+          <Property Name="hour_slot" Type="int" />
+          <Property Name="entry_count" Type="int" />
         </EntityType>
         <Association Name="Address_Street">
           <End Role="Streets" Type="PoolDataEntitiesModel.Store.Streets" Multiplicity="1" />
@@ -301,31 +305,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Message_Family">
-          <End Role="Families" Type="PoolDataEntitiesModel.Store.Families" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Messages" Type="PoolDataEntitiesModel.Store.Messages" Multiplicity="*" />
+        <Association Name="FK_Employee_EmployeeTime">
+          <End Role="Employee" Type="PoolDataEntitiesModel.Store.Employee" Multiplicity="1" />
+          <End Role="EmployeeTime" Type="PoolDataEntitiesModel.Store.EmployeeTime" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Families">
+            <Principal Role="Employee">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Messages">
-              <PropertyRef Name="Message_Family" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Message_Person">
-          <End Role="People" Type="PoolDataEntitiesModel.Store.People" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Messages" Type="PoolDataEntitiesModel.Store.Messages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="People">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Messages">
-              <PropertyRef Name="Message_Person" />
+            <Dependent Role="EmployeeTime">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -424,11 +412,8 @@
           <EntitySet Name="Entries" EntityType="PoolDataEntitiesModel.Entry" />
           <EntitySet Name="Families" EntityType="PoolDataEntitiesModel.Family" />
           <EntitySet Name="FamilyMemberTypes" EntityType="PoolDataEntitiesModel.FamilyMemberType" />
-          <EntitySet Name="Memberships" EntityType="PoolDataEntitiesModel.Membership" />
-          <EntitySet Name="Messages" EntityType="PoolDataEntitiesModel.Message" />
           <EntitySet Name="People" EntityType="PoolDataEntitiesModel.Person" />
           <EntitySet Name="PoolAccesses" EntityType="PoolDataEntitiesModel.PoolAccess" />
-          <EntitySet Name="RolePermissions" EntityType="PoolDataEntitiesModel.RolePermission" />
           <EntitySet Name="ShareFamilies" EntityType="PoolDataEntitiesModel.ShareFamily" />
           <EntitySet Name="ShareOwnerTypes" EntityType="PoolDataEntitiesModel.ShareOwnerType" />
           <EntitySet Name="Shares" EntityType="PoolDataEntitiesModel.Share" />
@@ -458,10 +443,6 @@
             <End Role="ShareUserTypes" EntitySet="ShareUserTypes" />
             <End Role="Families" EntitySet="Families" />
           </AssociationSet>
-          <AssociationSet Name="Message_Family" Association="PoolDataEntitiesModel.Message_Family">
-            <End Role="Families" EntitySet="Families" />
-            <End Role="Messages" EntitySet="Messages" />
-          </AssociationSet>
           <AssociationSet Name="PoolAccess_Family" Association="PoolDataEntitiesModel.PoolAccess_Family">
             <End Role="Families" EntitySet="Families" />
             <End Role="PoolAccesses" EntitySet="PoolAccesses" />
@@ -473,10 +454,6 @@
           <AssociationSet Name="FamilyMemberType_Person" Association="PoolDataEntitiesModel.FamilyMemberType_Person">
             <End Role="FamilyMemberTypes" EntitySet="FamilyMemberTypes" />
             <End Role="People" EntitySet="People" />
-          </AssociationSet>
-          <AssociationSet Name="Message_Person" Association="PoolDataEntitiesModel.Message_Person">
-            <End Role="People" EntitySet="People" />
-            <End Role="Messages" EntitySet="Messages" />
           </AssociationSet>
           <AssociationSet Name="PoolAccess_ShareOwnerType" Association="PoolDataEntitiesModel.PoolAccess_ShareOwnerType">
             <End Role="ShareOwnerTypes" EntitySet="ShareOwnerTypes" />
@@ -494,6 +471,13 @@
             <End Role="ShareUserTypes" EntitySet="ShareUserTypes" />
             <End Role="ShareFamilies" EntitySet="ShareFamilies" />
           </AssociationSet>
+          <EntitySet Name="Employees" EntityType="PoolDataEntitiesModel.Employee" />
+          <EntitySet Name="EmployeeTimes" EntityType="PoolDataEntitiesModel.EmployeeTime" />
+          <AssociationSet Name="FK_Employee_EmployeeTime" Association="PoolDataEntitiesModel.FK_Employee_EmployeeTime">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeTime" EntitySet="EmployeeTimes" />
+          </AssociationSet>
+          <EntitySet Name="HourlyCounts" EntityType="PoolDataEntitiesModel.HourlyCounts" />
         </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -535,7 +519,6 @@
           <NavigationProperty Name="Address" Relationship="PoolDataEntitiesModel.Family_Address" FromRole="Families" ToRole="Addresses" />
           <NavigationProperty Name="People" Relationship="PoolDataEntitiesModel.Family_Person" FromRole="Families" ToRole="People" />
           <NavigationProperty Name="ShareUserType" Relationship="PoolDataEntitiesModel.Family_ShareUserType" FromRole="Families" ToRole="ShareUserTypes" />
-          <NavigationProperty Name="Messages" Relationship="PoolDataEntitiesModel.Message_Family" FromRole="Families" ToRole="Messages" />
           <NavigationProperty Name="PoolAccesses" Relationship="PoolDataEntitiesModel.PoolAccess_Family" FromRole="Families" ToRole="PoolAccesses" />
           <NavigationProperty Name="ShareFamilies" Relationship="PoolDataEntitiesModel.ShareFamily_Family" FromRole="Families" ToRole="ShareFamilies" />
         </EntityType>
@@ -548,35 +531,11 @@
           <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="People" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="FamilyMemberTypes" ToRole="People" />
         </EntityType>
-        <EntityType Name="Membership">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Message">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Subject" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="Body" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="Sent" Type="DateTime" Precision="3" />
-          <Property Name="Read" Type="DateTime" Precision="3" />
-          <Property Name="From" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="ReplyPhone" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="ReplyEmail" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="Display" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="Message_Family" Type="Int32" />
-          <Property Name="Message_Person" Type="Int32" />
-          <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.Message_Family" FromRole="Messages" ToRole="Families" />
-          <NavigationProperty Name="Person" Relationship="PoolDataEntitiesModel.Message_Person" FromRole="Messages" ToRole="People" />
-        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="None" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="LastName" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -596,7 +555,6 @@
           <NavigationProperty Name="Entries" Relationship="PoolDataEntitiesModel.Entry_Person" FromRole="People" ToRole="Entries" />
           <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.Family_Person" FromRole="People" ToRole="Families" />
           <NavigationProperty Name="FamilyMemberType" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="People" ToRole="FamilyMemberTypes" />
-          <NavigationProperty Name="Messages" Relationship="PoolDataEntitiesModel.Message_Person" FromRole="People" ToRole="Messages" />
           <Property Type="Boolean" Name="Is_Guest" DefaultValue="false" />
         </EntityType>
         <EntityType Name="PoolAccess">
@@ -611,14 +569,6 @@
           <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.PoolAccess_Family" FromRole="PoolAccesses" ToRole="Families" />
           <NavigationProperty Name="ShareOwnerType" Relationship="PoolDataEntitiesModel.PoolAccess_ShareOwnerType" FromRole="PoolAccesses" ToRole="ShareOwnerTypes" />
           <NavigationProperty Name="ShareUserType" Relationship="PoolDataEntitiesModel.PoolAccess_ShareUserType" FromRole="PoolAccesses" ToRole="ShareUserTypes" />
-        </EntityType>
-        <EntityType Name="RolePermission">
-          <Key>
-            <PropertyRef Name="RoleName" />
-            <PropertyRef Name="PermissionId" />
-          </Key>
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="PermissionId" Type="String" Nullable="false" MaxLength="322" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="ShareFamily">
           <Key>
@@ -745,20 +695,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Message_Family">
-          <End Role="Families" Type="PoolDataEntitiesModel.Family" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Messages" Type="PoolDataEntitiesModel.Message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Families">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Messages">
-              <PropertyRef Name="Message_Family" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="PoolAccess_Family">
           <End Role="Families" Type="PoolDataEntitiesModel.Family" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -794,20 +730,6 @@
             </Principal>
             <Dependent Role="People">
               <PropertyRef Name="FamilyMemberType_Person" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Message_Person">
-          <End Role="People" Type="PoolDataEntitiesModel.Person" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Messages" Type="PoolDataEntitiesModel.Message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="People">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Messages">
-              <PropertyRef Name="Message_Person" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -859,6 +781,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EmployeeType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Picture" MaxLength="Max" FixedLength="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <NavigationProperty Name="EmployeeTimes" Relationship="PoolDataEntitiesModel.FK_Employee_EmployeeTime" FromRole="Employee" ToRole="EmployeeTime" />
+        </EntityType>
+        <EntityType Name="EmployeeTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="EmployeeId" Nullable="false" />
+          <Property Type="Boolean" Name="Entry" Nullable="false" />
+          <Property Type="DateTime" Name="Time" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="PoolDataEntitiesModel.FK_Employee_EmployeeTime" FromRole="EmployeeTime" ToRole="Employee" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_Employee_EmployeeTime">
+          <End Type="PoolDataEntitiesModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="PoolDataEntitiesModel.EmployeeTime" Role="EmployeeTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeTime">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HourlyCounts">
+          <Key>
+            <PropertyRef Name="EntryDate" />
+          </Key>
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="HourSlot" />
+          <Property Type="Int32" Name="EntryCount" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -911,30 +876,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Memberships">
-            <EntityTypeMapping TypeName="PoolDataEntitiesModel.Membership">
-              <MappingFragment StoreEntitySet="Memberships">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="PoolDataEntitiesModel.Message">
-              <MappingFragment StoreEntitySet="Messages">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Subject" ColumnName="Subject" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-                <ScalarProperty Name="Sent" ColumnName="Sent" />
-                <ScalarProperty Name="Read" ColumnName="Read" />
-                <ScalarProperty Name="From" ColumnName="From" />
-                <ScalarProperty Name="ReplyPhone" ColumnName="ReplyPhone" />
-                <ScalarProperty Name="ReplyEmail" ColumnName="ReplyEmail" />
-                <ScalarProperty Name="Display" ColumnName="Display" />
-                <ScalarProperty Name="Message_Family" ColumnName="Message_Family" />
-                <ScalarProperty Name="Message_Person" ColumnName="Message_Person" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Person">
               <MappingFragment StoreEntitySet="People">
@@ -967,14 +908,6 @@
                 <ScalarProperty Name="PoolAccess_ShareOwnerType" ColumnName="PoolAccess_ShareOwnerType" />
                 <ScalarProperty Name="PoolAccess_ShareUserType" ColumnName="PoolAccess_ShareUserType" />
                 <ScalarProperty Name="PoolAccess_Family" ColumnName="PoolAccess_Family" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RolePermissions">
-            <EntityTypeMapping TypeName="PoolDataEntitiesModel.RolePermission">
-              <MappingFragment StoreEntitySet="RolePermissions">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1023,6 +956,38 @@
               <MappingFragment StoreEntitySet="Streets">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTimes">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.EmployeeTime">
+              <MappingFragment StoreEntitySet="EmployeeTime">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Entry" ColumnName="Entry" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HourlyCounts">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.HourlyCounts">
+              <MappingFragment StoreEntitySet="Hourly_Counts">
+                <ScalarProperty Name="EntryCount" ColumnName="entry_count" />
+                <ScalarProperty Name="HourSlot" ColumnName="hour_slot" />
+                <ScalarProperty Name="EntryDate" ColumnName="entry_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

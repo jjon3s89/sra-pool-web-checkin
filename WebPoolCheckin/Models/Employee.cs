@@ -12,8 +12,21 @@ namespace WebPoolCheckin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Membership
+    public partial class Employee
     {
+        public Employee()
+        {
+            this.EmployeeTimes = new HashSet<EmployeeTime>();
+        }
+    
         public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmployeeType { get; set; }
+        public string PhoneNumber { get; set; }
+        public byte[] Picture { get; set; }
+        public bool Active { get; set; }
+    
+        public virtual ICollection<EmployeeTime> EmployeeTimes { get; set; }
     }
 }
