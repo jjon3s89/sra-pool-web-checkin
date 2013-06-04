@@ -1,10 +1,11 @@
+﻿
 ﻿@model IList<WebPoolCheckin.Models.Person>
 
-<div class="" style="clear:both; float:none; width:60em; margin:auto; text-align:center">
-<h2>Please confirm your selections</h2>
+<div class="container" style="clear:both; float:none; width:50em; margin:auto; text-align:center">
+<h3>Please confirm your selections</h3>
 
 @using(Html.BeginForm("ConfirmCheckin","Search")){
-    
+<div class="container" style="clear:both; float:none; width:15em; margin:auto; text-align:center">
     <ul>
     @{
         var personArray = Model.ToArray();
@@ -12,26 +13,23 @@
     {
         var person = personArray[p];
         @Html.Hidden("CheckinPeople["+p+"]", person.Id)
-        <li>@person.FirstName @person.LastName (
-            @if(person.Is_Guest.HasValue && person.Is_Guest.Value){
-                @:Guest
-            }else{
-                @:Member
-            })</li>
+        <li>@person.FirstName @person.LastName</li>
     }
     }
     </ul>
     <button>Confirm</button>
     <button id="Cancel">Cancel</button>
+</div>
 }
 </div>
 
 @section scripts{
     <script type="text/javascript">
         $(function () {
-            $('#Cancel').button().click(
+            $("#Cancel").button().click(function() {
                 window.location="~/";
-            );
+            });
         });
+        
     </script>
 }

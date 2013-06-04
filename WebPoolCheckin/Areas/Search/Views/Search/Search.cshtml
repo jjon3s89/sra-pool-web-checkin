@@ -18,7 +18,7 @@
         <br />
         <div>
             <button style="width:10em" class="btn btn-primary">Go</button>
-            <!--<button style="width:10em" id="clear" class="btn btn-primary">Clear</button>-->
+            <button style="width:10em" id="clear" class="btn btn-primary">Clear</button>
         </div>
     </div>
 }
@@ -54,10 +54,6 @@
                 window.location = '@Url.Action("EditFamilyGuestList")/' + this.value;
             });
 
-            $('#clear').click(function (e) {
-                e.preventDefault();
-                window.location = "/Search/Search";
-            });
         });
 
         window.onload = function () {
