@@ -9,7 +9,7 @@
         {
             foreach (var p in sf.Family.People.Where(p => !p.Is_Guest.HasValue || !p.Is_Guest.Value))
             {
-                <div style="border:1px black solid; clear: none; float: left;  text-align:center; margin: 10px; height: 350px; width: 200px; overflow:hidden">
+                <div style="border:1px black solid; clear: none; float: left;  text-align:center; margin: 10px; height: 310px; width: 200px; overflow:hidden">
                     <input type="checkbox" name="CheckinPeople" value="@p.Id" />&nbsp;
                     @if (p.Picture != null)
                     {
@@ -31,7 +31,7 @@
             }
             if (sf.Family.People.Any(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
             {
-                <div style="border:1px blue solid; clear: none; float: left; margin: 10px; height: 350px; width: 200px; overflow:hidden">
+                <div style="border:1px blue solid; clear: none; float: left; margin: 10px; height: 310px; width: 200px; overflow:hidden">
                     <h4>Previous Guests</h4>
                     <select name="CheckinPeople" multiple="multiple" size="6">
                         @foreach (var p in sf.Family.People.Where(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
