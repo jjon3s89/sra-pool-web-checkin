@@ -26,6 +26,15 @@
       [Hourly_Counts].[entry_count] AS [entry_count]
       FROM [dbo].[Hourly_Counts] AS [Hourly_Counts]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="rpt_employee_time" EntityType="PoolDataEntitiesModel.Store.rpt_employee_time" store:Type="Views" store:Schema="dbo" store:Name="rpt_employee_time">
+            <DefiningQuery>SELECT 
+      [rpt_employee_time].[FirstName] AS [FirstName], 
+      [rpt_employee_time].[LastName] AS [LastName], 
+      [rpt_employee_time].[EmployeeType] AS [EmployeeType], 
+      [rpt_employee_time].[in_out] AS [in_out], 
+      [rpt_employee_time].[date_time] AS [date_time]
+      FROM [dbo].[rpt_employee_time] AS [rpt_employee_time]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="Address_Street" Association="PoolDataEntitiesModel.Store.Address_Street">
             <End Role="Streets" EntitySet="Streets" />
             <End Role="Addresses" EntitySet="Addresses" />
@@ -123,7 +132,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Time" Type="datetime" Nullable="false" />
           <Property Name="Entry_Person" Type="int" Nullable="false" />
-          <Property Name="Is_exit" Type="bit" Nullable="false" />
+          <Property Name="Is_exit" Type="bit" />
         </EntityType>
         <EntityType Name="Families">
           <Key>
@@ -232,6 +241,22 @@
           <Property Name="entry_date" Type="datetime" Nullable="false" />
           <Property Name="hour_slot" Type="int" />
           <Property Name="entry_count" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.rpt_employee_time' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="rpt_employee_time">
+          <Key>
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="EmployeeType" />
+            <PropertyRef Name="in_out" />
+          </Key>
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="EmployeeType" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="in_out" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="date_time" Type="varchar" MaxLength="26" />
         </EntityType>
         <Association Name="Address_Street">
           <End Role="Streets" Type="PoolDataEntitiesModel.Store.Streets" Multiplicity="1" />
@@ -478,6 +503,7 @@
             <End Role="EmployeeTime" EntitySet="EmployeeTimes" />
           </AssociationSet>
           <EntitySet Name="HourlyCounts" EntityType="PoolDataEntitiesModel.HourlyCounts" />
+          <EntitySet Name="rpt_employee_time" EntityType="PoolDataEntitiesModel.rpt_employee_time" />
         </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -502,7 +528,7 @@
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Entry_Person" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="PoolDataEntitiesModel.Entry_Person" FromRole="Entries" ToRole="People" />
-          <Property Type="Boolean" Name="Is_exit" Nullable="false" />
+          <Property Type="Boolean" Name="Is_exit" />
         </EntityType>
         <EntityType Name="Family">
           <Key>
@@ -824,6 +850,19 @@
           <Property Type="Int32" Name="HourSlot" />
           <Property Type="Int32" Name="EntryCount" />
         </EntityType>
+        <EntityType Name="rpt_employee_time">
+          <Key>
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="EmployeeType" />
+            <PropertyRef Name="in_out" />
+          </Key>
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EmployeeType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="in_out" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="date_time" MaxLength="26" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -988,6 +1027,17 @@
                 <ScalarProperty Name="EntryCount" ColumnName="entry_count" />
                 <ScalarProperty Name="HourSlot" ColumnName="hour_slot" />
                 <ScalarProperty Name="EntryDate" ColumnName="entry_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rpt_employee_time">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.rpt_employee_time">
+              <MappingFragment StoreEntitySet="rpt_employee_time">
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="in_out" ColumnName="in_out" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<WebPoolCheckin.Models.HourlyCounts>
+﻿@model IEnumerable<WebPoolCheckin.Models.rpt_employee_time>
 
 @{
-    ViewBag.Title = "Hourly";
+    ViewBag.Title = "Employee Time";
 }
 
 <style type="text/css">
@@ -36,33 +36,39 @@ table td {
 }
 </style>
 
-<h2>Hourly</h2>
+<h2>Employee Time Details</h2>
 <p><a href="~/Report">Return Home</a></p>
 
 <table>
     <tr>
         <th>
-            Entry Date
+            First Name
         </th>
         <th>
-            Hour Slot
+            Last Name
         </th>
         <th>
-            Entry Count
+            In/Out
+        </th>
+        <th>
+            Date/Time
         </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        
         <td>
-            @Html.DisplayFor(modelItem => item.EntryDate,"ShortDateTime")
+            @Html.DisplayFor(modelItem => item.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HourSlot)
-:00
+            @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EntryCount)
+            @Html.DisplayFor(modelItem => item.in_out)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_time)
         </td>
     </tr>
 }

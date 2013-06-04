@@ -3,18 +3,18 @@
 
 @using (Html.BeginForm("Checkin", "Search", FormMethod.Post, new { @class = "form-inline", id="checkin-form" }))
 {
-    <div class="container">
+    <div class="container" style="border:1px gray solid; clear: none;  text-align:center;">
         @Html.HiddenFor(m => m.Id)
         @foreach (var sf in Model.ShareFamilies.Where(sf => sf.Active))
         {
             foreach (var p in sf.Family.People.Where(p => !p.Is_Guest.HasValue || !p.Is_Guest.Value))
             {
-                <div style="border:1px black solid; clear: none; float: left; margin: 10px; height: 230px; width: 200px; overflow:hidden">
+                <div style="border:1px black solid; clear: none; float: left;  text-align:center; margin: 10px; height: 350px; width: 200px; overflow:hidden">
                     <input type="checkbox" name="CheckinPeople" value="@p.Id" />&nbsp;
                     @if (p.Picture != null)
                     {
-                        <span class="person-name">@p.FullName</span>
-                        <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">(Change Picture)</a>
+                        <span class="person-name">@p.FullName</span><br />
+                        <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">Change Picture</a>
                         <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="200" width="200" class="person img-rounded" />
                     }
                     else
@@ -24,12 +24,14 @@
                             <img src='~/Images/default_user_300x300.png' class="no-image img-rounded" height="200" width="200" />
                         </a>
                     }
+                    <div class="" style="clear:both; float:none; margin:auto; text-align:center">
                     <button name="delete" class="delete btn btn-danger" value="@p.Id"><i class="icon-trash"></i> Remove</button>
+                    </div>
                 </div>
             }
             if (sf.Family.People.Any(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
             {
-                <div style="border:1px blue solid; clear: none; float: left; margin: 10px; height: 230px; width: 200px; overflow:hidden">
+                <div style="border:1px blue solid; clear: none; float: left; margin: 10px; height: 350px; width: 200px; overflow:hidden">
                     <h4>Previous Guests</h4>
                     <select name="CheckinPeople" multiple="multiple" size="6">
                         @foreach (var p in sf.Family.People.Where(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
@@ -41,9 +43,9 @@
                 </div>
             }
         }
-        <div class="" style="clear:both; float:none; width:30em; margin:auto; text-align:center">
-            <button style="width:10em" class="btn btn-primary">Checkin</button>
-            <button style="width:10em" name="guests" id="guests" value="true" class="btn">Checkin w/ New Guests</button>
+        <div class="" style="clear:both; float:none; width:60em; margin:auto; text-align:center">
+            <button style="width:15em" class="btn btn-primary">Checkin</button>
+            <button style="width:15em" name="guests" id="guests" value="true" class="btn btn-primary">Checkin w/ New Guests</button>
         </div>
 
     </div>

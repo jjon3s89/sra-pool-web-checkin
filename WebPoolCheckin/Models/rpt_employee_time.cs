@@ -12,13 +12,12 @@ namespace WebPoolCheckin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Entry
+    public partial class rpt_employee_time
     {
-        public int Id { get; set; }
-        public System.DateTime Time { get; set; }
-        public int Entry_Person { get; set; }
-        public Nullable<bool> Is_exit { get; set; }
-    
-        public virtual Person Person { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmployeeType { get; set; }
+        public string in_out { get; set; }
+        public string date_time { get; set; }
     }
 }

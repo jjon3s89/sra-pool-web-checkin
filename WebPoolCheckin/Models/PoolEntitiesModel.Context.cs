@@ -39,5 +39,6 @@ namespace WebPoolCheckin.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeTime> EmployeeTimes { get; set; }
         public DbSet<HourlyCounts> HourlyCounts { get; set; }
+        public DbSet<rpt_employee_time> rpt_employee_time { get; set; }
     }
 }

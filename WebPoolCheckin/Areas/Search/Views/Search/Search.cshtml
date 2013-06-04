@@ -4,16 +4,21 @@
     ViewBag.Title = "Welcome to the Pool";
 }
 
+
+
+
 @using (Html.BeginForm("Search", "Search", FormMethod.Post, new { @class = "", id = "search-form" }))
 {
-    <div style="width:30em; margin:auto; text-align:center">
-        <h3>Please enter your Number</h3>
+    <div style="width:50em; margin:auto; text-align:center">
+        <h1>Welcome to Stratford Pool</h1><br />
+        <h3>Please Enter Your Member #</h3>
         @Html.Password("SearchText", "", new { @class = "input-large search-query" })
         @Html.ValidationSummary(false)
         <br />
+        <br />
         <div>
             <button style="width:10em" class="btn btn-primary">Go</button>
-            <button style="width:10em" id="clear" class="btn">Clear</button>
+            <!--<button style="width:10em" id="clear" class="btn btn-primary">Clear</button>-->
         </div>
     </div>
 }
@@ -54,5 +59,12 @@
                 window.location = "/Search/Search";
             });
         });
+
+        window.onload = function () {
+            var txtBox = document.getElementById("SearchText");
+            if (txtBox != null) {
+                txtBox.focus();
+            }
+        };
     </script>
 }

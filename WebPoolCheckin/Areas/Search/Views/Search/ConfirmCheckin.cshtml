@@ -1,5 +1,6 @@
 ﻿@model IList<WebPoolCheckin.Models.Person>
 
+<div class="" style="clear:both; float:none; width:60em; margin:auto; text-align:center">
 <h2>Please confirm your selections</h2>
 
 @using(Html.BeginForm("ConfirmCheckin","Search")){
@@ -23,6 +24,7 @@
     <button>Confirm</button>
     <button id="Cancel">Cancel</button>
 }
+</div>
 
 @section scripts{
     <script type="text/javascript">

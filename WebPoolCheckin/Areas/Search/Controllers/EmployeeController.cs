@@ -40,6 +40,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             checkinTime.Entry = IsEntry;
             checkinTime.EmployeeId = id;
             ctx.EmployeeTimes.Add(checkinTime);
+            ctx.SaveChanges();
             TempData["success"] = "Employee checked " + (IsEntry ? "In" : "Out");
             return RedirectToAction("Index", "Search");
         }
