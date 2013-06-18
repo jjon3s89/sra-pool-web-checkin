@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebPoolCheckin.Models.HourlyCounts>
+﻿@model IEnumerable<WebPoolCheckin.Models.hourlycount>
 
 @{
     ViewBag.Title = "Hourly";
@@ -55,14 +55,14 @@ table td {
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.EntryDate,"ShortDateTime")
+            @Html.DisplayFor(modelItem => item.entry_date, "ShortDateTime")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HourSlot)
+            @Html.DisplayFor(modelItem => item.hour_slot)
 :00
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EntryCount)
+            @Html.DisplayFor(modelItem => item.entry_count)
         </td>
     </tr>
 }

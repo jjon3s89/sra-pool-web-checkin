@@ -19,12 +19,13 @@
           <EntitySet Name="Shares" EntityType="PoolDataEntitiesModel.Store.Shares" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ShareUserTypes" EntityType="PoolDataEntitiesModel.Store.ShareUserTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Streets" EntityType="PoolDataEntitiesModel.Store.Streets" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Hourly_Counts" EntityType="PoolDataEntitiesModel.Store.Hourly_Counts" store:Type="Views" store:Schema="dbo" store:Name="Hourly_Counts">
+          <EntitySet Name="hourlycounts" EntityType="PoolDataEntitiesModel.Store.hourlycounts" store:Type="Views" store:Schema="dbo" store:Name="hourlycounts">
             <DefiningQuery>SELECT 
-      [Hourly_Counts].[entry_date] AS [entry_date], 
-      [Hourly_Counts].[hour_slot] AS [hour_slot], 
-      [Hourly_Counts].[entry_count] AS [entry_count]
-      FROM [dbo].[Hourly_Counts] AS [Hourly_Counts]</DefiningQuery>
+      [hourlycounts].[Row] AS [Row], 
+      [hourlycounts].[entry_date] AS [entry_date], 
+      [hourlycounts].[hour_slot] AS [hour_slot], 
+      [hourlycounts].[entry_count] AS [entry_count]
+      FROM [dbo].[hourlycounts] AS [hourlycounts]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="rpt_employee_time" EntityType="PoolDataEntitiesModel.Store.rpt_employee_time" store:Type="Views" store:Schema="dbo" store:Name="rpt_employee_time">
             <DefiningQuery>SELECT 
@@ -34,6 +35,74 @@
       [rpt_employee_time].[in_out] AS [in_out], 
       [rpt_employee_time].[date_time] AS [date_time]
       FROM [dbo].[rpt_employee_time] AS [rpt_employee_time]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Applications" EntityType="PoolDataEntitiesModel.Store.vw_aspnet_Applications" store:Type="Views" store:Schema="dbo" store:Name="vw_aspnet_Applications">
+            <DefiningQuery>SELECT 
+      [vw_aspnet_Applications].[ApplicationName] AS [ApplicationName], 
+      [vw_aspnet_Applications].[LoweredApplicationName] AS [LoweredApplicationName], 
+      [vw_aspnet_Applications].[ApplicationId] AS [ApplicationId], 
+      [vw_aspnet_Applications].[Description] AS [Description]
+      FROM [dbo].[vw_aspnet_Applications] AS [vw_aspnet_Applications]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_MembershipUsers" EntityType="PoolDataEntitiesModel.Store.vw_aspnet_MembershipUsers" store:Type="Views" store:Schema="dbo" store:Name="vw_aspnet_MembershipUsers">
+            <DefiningQuery>SELECT 
+      [vw_aspnet_MembershipUsers].[UserId] AS [UserId], 
+      [vw_aspnet_MembershipUsers].[PasswordFormat] AS [PasswordFormat], 
+      [vw_aspnet_MembershipUsers].[MobilePIN] AS [MobilePIN], 
+      [vw_aspnet_MembershipUsers].[Email] AS [Email], 
+      [vw_aspnet_MembershipUsers].[LoweredEmail] AS [LoweredEmail], 
+      [vw_aspnet_MembershipUsers].[PasswordQuestion] AS [PasswordQuestion], 
+      [vw_aspnet_MembershipUsers].[PasswordAnswer] AS [PasswordAnswer], 
+      [vw_aspnet_MembershipUsers].[IsApproved] AS [IsApproved], 
+      [vw_aspnet_MembershipUsers].[IsLockedOut] AS [IsLockedOut], 
+      [vw_aspnet_MembershipUsers].[CreateDate] AS [CreateDate], 
+      [vw_aspnet_MembershipUsers].[LastLoginDate] AS [LastLoginDate], 
+      [vw_aspnet_MembershipUsers].[LastPasswordChangedDate] AS [LastPasswordChangedDate], 
+      [vw_aspnet_MembershipUsers].[LastLockoutDate] AS [LastLockoutDate], 
+      [vw_aspnet_MembershipUsers].[FailedPasswordAttemptCount] AS [FailedPasswordAttemptCount], 
+      [vw_aspnet_MembershipUsers].[FailedPasswordAttemptWindowStart] AS [FailedPasswordAttemptWindowStart], 
+      [vw_aspnet_MembershipUsers].[FailedPasswordAnswerAttemptCount] AS [FailedPasswordAnswerAttemptCount], 
+      [vw_aspnet_MembershipUsers].[FailedPasswordAnswerAttemptWindowStart] AS [FailedPasswordAnswerAttemptWindowStart], 
+      [vw_aspnet_MembershipUsers].[Comment] AS [Comment], 
+      [vw_aspnet_MembershipUsers].[ApplicationId] AS [ApplicationId], 
+      [vw_aspnet_MembershipUsers].[UserName] AS [UserName], 
+      [vw_aspnet_MembershipUsers].[MobileAlias] AS [MobileAlias], 
+      [vw_aspnet_MembershipUsers].[IsAnonymous] AS [IsAnonymous], 
+      [vw_aspnet_MembershipUsers].[LastActivityDate] AS [LastActivityDate]
+      FROM [dbo].[vw_aspnet_MembershipUsers] AS [vw_aspnet_MembershipUsers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Profiles" EntityType="PoolDataEntitiesModel.Store.vw_aspnet_Profiles" store:Type="Views" store:Schema="dbo" store:Name="vw_aspnet_Profiles">
+            <DefiningQuery>SELECT 
+      [vw_aspnet_Profiles].[UserId] AS [UserId], 
+      [vw_aspnet_Profiles].[LastUpdatedDate] AS [LastUpdatedDate], 
+      [vw_aspnet_Profiles].[DataSize] AS [DataSize]
+      FROM [dbo].[vw_aspnet_Profiles] AS [vw_aspnet_Profiles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Roles" EntityType="PoolDataEntitiesModel.Store.vw_aspnet_Roles" store:Type="Views" store:Schema="dbo" store:Name="vw_aspnet_Roles">
+            <DefiningQuery>SELECT 
+      [vw_aspnet_Roles].[ApplicationId] AS [ApplicationId], 
+      [vw_aspnet_Roles].[RoleId] AS [RoleId], 
+      [vw_aspnet_Roles].[RoleName] AS [RoleName], 
+      [vw_aspnet_Roles].[LoweredRoleName] AS [LoweredRoleName], 
+      [vw_aspnet_Roles].[Description] AS [Description]
+      FROM [dbo].[vw_aspnet_Roles] AS [vw_aspnet_Roles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Users" EntityType="PoolDataEntitiesModel.Store.vw_aspnet_Users" store:Type="Views" store:Schema="dbo" store:Name="vw_aspnet_Users">
+            <DefiningQuery>SELECT 
+      [vw_aspnet_Users].[ApplicationId] AS [ApplicationId], 
+      [vw_aspnet_Users].[UserId] AS [UserId], 
+      [vw_aspnet_Users].[UserName] AS [UserName], 
+      [vw_aspnet_Users].[LoweredUserName] AS [LoweredUserName], 
+      [vw_aspnet_Users].[MobileAlias] AS [MobileAlias], 
+      [vw_aspnet_Users].[IsAnonymous] AS [IsAnonymous], 
+      [vw_aspnet_Users].[LastActivityDate] AS [LastActivityDate]
+      FROM [dbo].[vw_aspnet_Users] AS [vw_aspnet_Users]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_UsersInRoles" EntityType="PoolDataEntitiesModel.Store.vw_aspnet_UsersInRoles" store:Type="Views" store:Schema="dbo" store:Name="vw_aspnet_UsersInRoles">
+            <DefiningQuery>SELECT 
+      [vw_aspnet_UsersInRoles].[UserId] AS [UserId], 
+      [vw_aspnet_UsersInRoles].[RoleId] AS [RoleId]
+      FROM [dbo].[vw_aspnet_UsersInRoles] AS [vw_aspnet_UsersInRoles]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="Address_Street" Association="PoolDataEntitiesModel.Store.Address_Street">
             <End Role="Streets" EntitySet="Streets" />
@@ -232,12 +301,14 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'applicationdata.dbo.Hourly_Counts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'applicationdata.dbo.hourlycounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
-        <EntityType Name="Hourly_Counts">
+        <EntityType Name="hourlycounts">
           <Key>
+            <PropertyRef Name="Row" />
             <PropertyRef Name="entry_date" />
           </Key>
+          <Property Name="Row" Type="bigint" Nullable="false" />
           <Property Name="entry_date" Type="datetime" Nullable="false" />
           <Property Name="hour_slot" Type="int" />
           <Property Name="entry_count" Type="int" />
@@ -257,6 +328,125 @@
           <Property Name="EmployeeType" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="in_out" Type="varchar" Nullable="false" MaxLength="3" />
           <Property Name="date_time" Type="varchar" MaxLength="26" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Applications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationName" />
+            <PropertyRef Name="LoweredApplicationName" />
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_MembershipUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_aspnet_MembershipUsers">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="PasswordFormat" />
+            <PropertyRef Name="IsApproved" />
+            <PropertyRef Name="IsLockedOut" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="LastLoginDate" />
+            <PropertyRef Name="LastPasswordChangedDate" />
+            <PropertyRef Name="LastLockoutDate" />
+            <PropertyRef Name="FailedPasswordAttemptCount" />
+            <PropertyRef Name="FailedPasswordAttemptWindowStart" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptCount" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptWindowStart" />
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Profiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_aspnet_Profiles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="DataSize" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_aspnet_Roles">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+            <PropertyRef Name="LoweredRoleName" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredRoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_aspnet_Users">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LoweredUserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_UsersInRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vw_aspnet_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <Association Name="Address_Street">
           <End Role="Streets" Type="PoolDataEntitiesModel.Store.Streets" Multiplicity="1" />
@@ -502,8 +692,14 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeTime" EntitySet="EmployeeTimes" />
           </AssociationSet>
-          <EntitySet Name="HourlyCounts" EntityType="PoolDataEntitiesModel.HourlyCounts" />
           <EntitySet Name="rpt_employee_time" EntityType="PoolDataEntitiesModel.rpt_employee_time" />
+          <EntitySet Name="vw_aspnet_Applications" EntityType="PoolDataEntitiesModel.vw_aspnet_Applications" />
+          <EntitySet Name="vw_aspnet_MembershipUsers" EntityType="PoolDataEntitiesModel.vw_aspnet_MembershipUsers" />
+          <EntitySet Name="vw_aspnet_Profiles" EntityType="PoolDataEntitiesModel.vw_aspnet_Profiles" />
+          <EntitySet Name="vw_aspnet_Roles" EntityType="PoolDataEntitiesModel.vw_aspnet_Roles" />
+          <EntitySet Name="vw_aspnet_Users" EntityType="PoolDataEntitiesModel.vw_aspnet_Users" />
+          <EntitySet Name="vw_aspnet_UsersInRoles" EntityType="PoolDataEntitiesModel.vw_aspnet_UsersInRoles" />
+          <EntitySet Name="hourlycounts" EntityType="PoolDataEntitiesModel.hourlycount" />
         </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -842,14 +1038,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="HourlyCounts">
-          <Key>
-            <PropertyRef Name="EntryDate" />
-          </Key>
-          <Property Type="DateTime" Name="EntryDate" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="HourSlot" />
-          <Property Type="Int32" Name="EntryCount" />
-        </EntityType>
         <EntityType Name="rpt_employee_time">
           <Key>
             <PropertyRef Name="FirstName" />
@@ -862,6 +1050,117 @@
           <Property Type="String" Name="EmployeeType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="in_out" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="date_time" MaxLength="26" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationName" />
+            <PropertyRef Name="LoweredApplicationName" />
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Type="String" Name="ApplicationName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredApplicationName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_MembershipUsers">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="PasswordFormat" />
+            <PropertyRef Name="IsApproved" />
+            <PropertyRef Name="IsLockedOut" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="LastLoginDate" />
+            <PropertyRef Name="LastPasswordChangedDate" />
+            <PropertyRef Name="LastLockoutDate" />
+            <PropertyRef Name="FailedPasswordAttemptCount" />
+            <PropertyRef Name="FailedPasswordAttemptWindowStart" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptCount" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptWindowStart" />
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="PasswordFormat" Nullable="false" />
+          <Property Type="String" Name="MobilePIN" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredEmail" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordQuestion" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordAnswer" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <Property Type="Boolean" Name="IsLockedOut" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastLoginDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastPasswordChangedDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastLockoutDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="FailedPasswordAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAttemptWindowStart" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="FailedPasswordAnswerAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobileAlias" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Profiles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="DataSize" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Roles">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+            <PropertyRef Name="LoweredRoleName" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredRoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Users">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LoweredUserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredUserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobileAlias" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hourlycount">
+          <Key>
+            <PropertyRef Name="Row" />
+            <PropertyRef Name="entry_date" />
+          </Key>
+          <Property Type="Int64" Name="Row" Nullable="false" />
+          <Property Type="DateTime" Name="entry_date" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="hour_slot" />
+          <Property Type="Int32" Name="entry_count" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1021,15 +1320,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HourlyCounts">
-            <EntityTypeMapping TypeName="PoolDataEntitiesModel.HourlyCounts">
-              <MappingFragment StoreEntitySet="Hourly_Counts">
-                <ScalarProperty Name="EntryCount" ColumnName="entry_count" />
-                <ScalarProperty Name="HourSlot" ColumnName="hour_slot" />
-                <ScalarProperty Name="EntryDate" ColumnName="entry_date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="rpt_employee_time">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.rpt_employee_time">
               <MappingFragment StoreEntitySet="rpt_employee_time">
@@ -1038,6 +1328,96 @@
                 <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Applications">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.vw_aspnet_Applications">
+              <MappingFragment StoreEntitySet="vw_aspnet_Applications">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_MembershipUsers">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.vw_aspnet_MembershipUsers">
+              <MappingFragment StoreEntitySet="vw_aspnet_MembershipUsers">
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Profiles">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.vw_aspnet_Profiles">
+              <MappingFragment StoreEntitySet="vw_aspnet_Profiles">
+                <ScalarProperty Name="DataSize" ColumnName="DataSize" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Roles">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.vw_aspnet_Roles">
+              <MappingFragment StoreEntitySet="vw_aspnet_Roles">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Users">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.vw_aspnet_Users">
+              <MappingFragment StoreEntitySet="vw_aspnet_Users">
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_UsersInRoles">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.vw_aspnet_UsersInRoles">
+              <MappingFragment StoreEntitySet="vw_aspnet_UsersInRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hourlycounts">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.hourlycount">
+              <MappingFragment StoreEntitySet="hourlycounts">
+                <ScalarProperty Name="entry_count" ColumnName="entry_count" />
+                <ScalarProperty Name="hour_slot" ColumnName="hour_slot" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="Row" ColumnName="Row" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,10 +12,11 @@ namespace WebPoolCheckin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HourlyCounts
+    public partial class hourlycount
     {
-        public System.DateTime EntryDate { get; set; }
-        public Nullable<int> HourSlot { get; set; }
-        public Nullable<int> EntryCount { get; set; }
+        public long Row { get; set; }
+        public System.DateTime entry_date { get; set; }
+        public Nullable<int> hour_slot { get; set; }
+        public Nullable<int> entry_count { get; set; }
     }
 }

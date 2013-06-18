@@ -20,7 +20,8 @@ namespace WebPoolCheckin.Areas.Report.Controllers
         public ActionResult Hourly()
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-            return View(ctx.HourlyCounts.OrderBy(h=>h.EntryDate).ThenBy(h=>h.HourSlot));
+            return View(ctx.hourlycounts.OrderByDescending(h => h.entry_date).ThenBy(h => h.hour_slot));
+            //return View(ctx.hourlycounts);
         }
         public ActionResult EmployeeTime()
         {

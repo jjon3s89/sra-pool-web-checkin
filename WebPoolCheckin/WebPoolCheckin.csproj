@@ -163,7 +163,7 @@
     <Compile Include="Models\FamilyMemberType.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HourlyCounts.cs">
+    <Compile Include="Models\hourlycount.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Metadata\EmployeeMetadata.cs" />
@@ -207,6 +207,24 @@
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Metadata\PersonMetadata.cs" />
+    <Compile Include="Models\vw_aspnet_Applications.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_MembershipUsers.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_Profiles.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_Roles.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_Users.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vw_aspnet_UsersInRoles.cs">
+      <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

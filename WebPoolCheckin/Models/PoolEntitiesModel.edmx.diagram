@@ -32,8 +32,14 @@
         <EntityTypeShape EntityType="PoolDataEntitiesModel.Employee" Width="1.5" PointX="14" PointY="5.5" />
         <EntityTypeShape EntityType="PoolDataEntitiesModel.EmployeeTime" Width="1.5" PointX="14" PointY="9.125" />
         <AssociationConnector Association="PoolDataEntitiesModel.FK_Employee_EmployeeTime" />
-        <EntityTypeShape EntityType="PoolDataEntitiesModel.HourlyCounts" Width="1.5" PointX="10.875" PointY="2.875" />
         <EntityTypeShape EntityType="PoolDataEntitiesModel.rpt_employee_time" Width="1.5" PointX="13.125" PointY="2.375" />
+        <EntityTypeShape EntityType="PoolDataEntitiesModel.vw_aspnet_Applications" Width="1.5" PointX="7.1942418996217858" PointY="16.875945471635063" />
+        <EntityTypeShape EntityType="PoolDataEntitiesModel.vw_aspnet_MembershipUsers" Width="1.5" PointX="10.140705763427871" PointY="26.009673950266873" />
+        <EntityTypeShape EntityType="PoolDataEntitiesModel.vw_aspnet_Profiles" Width="1.5" PointX="0.57800962244067788" PointY="14.156753576433637" />
+        <EntityTypeShape EntityType="PoolDataEntitiesModel.vw_aspnet_Roles" Width="1.5" PointX="10.194075257607771" PointY="2.3823656003840106" />
+        <EntityTypeShape EntityType="PoolDataEntitiesModel.vw_aspnet_Users" Width="1.5" PointX="2.7660551549708727" PointY="17.797114276232715" />
+        <EntityTypeShape EntityType="PoolDataEntitiesModel.vw_aspnet_UsersInRoles" Width="1.5" PointX="6.1822834583848181" PointY="21.293477038523871" />
+        <EntityTypeShape EntityType="PoolDataEntitiesModel.hourlycount" Width="1.5" PointX="7.375" PointY="32.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
