@@ -38,13 +38,8 @@ namespace WebPoolCheckin.Models
         public DbSet<Street> Streets { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeTime> EmployeeTimes { get; set; }
-        public DbSet<rpt_employee_time> rpt_employee_time { get; set; }
-        public DbSet<vw_aspnet_Applications> vw_aspnet_Applications { get; set; }
         public DbSet<vw_aspnet_MembershipUsers> vw_aspnet_MembershipUsers { get; set; }
-        public DbSet<vw_aspnet_Profiles> vw_aspnet_Profiles { get; set; }
-        public DbSet<vw_aspnet_Roles> vw_aspnet_Roles { get; set; }
-        public DbSet<vw_aspnet_Users> vw_aspnet_Users { get; set; }
-        public DbSet<vw_aspnet_UsersInRoles> vw_aspnet_UsersInRoles { get; set; }
         public DbSet<hourlycount> hourlycounts { get; set; }
+        public DbSet<rpt_employee_time> rpt_employee_time { get; set; }
     }
 }

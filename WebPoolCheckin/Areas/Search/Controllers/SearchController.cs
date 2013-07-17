@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebPoolCheckin.Models;
 using WebPoolCheckin.Areas.Search.Models;
+using System.Net.Mail;
 
 namespace WebPoolCheckin.Areas.Search.Controllers
 {
@@ -72,20 +73,32 @@ namespace WebPoolCheckin.Areas.Search.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConfirmCheckin(int[] CheckinPeople)
+        public ActionResult ConfirmCheckin(int[] CheckinPeople, String[] PersonEmail)
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-            foreach (var personid in CheckinPeople)
+            for (int i = 0; i < CheckinPeople.Length; i++ )
             {
                 var entry = new Entry()
                 {
-                    Entry_Person = personid,
+                    Entry_Person = CheckinPeople[i],
                     Time = DateTime.Now
                 };
                 ctx.Entries.Add(entry);
+                try
+                {
+                    if (!String.IsNullOrWhiteSpace(PersonEmail[i]))
+                    {
+                        MailAddress address = new MailAddress(PersonEmail[i]);
+                        int pid = CheckinPeople[i];
+                        Person person = ctx.People.Single(p => p.Id == pid);
+                        person.Email = PersonEmail[i];
+                    }
+                }
+                catch (Exception) 
+                { }
             }
             ctx.SaveChanges();
-            TempData["success"] = "Successfully checked In";
+            TempData["success"] = "Successfully checked in";
             return RedirectToAction("Index");
         }
 

@@ -5,18 +5,30 @@
 <h3>Please confirm your selections</h3>
 
 @using(Html.BeginForm("ConfirmCheckin","Search")){
-<div class="container" style="clear:both; float:none; width:15em; margin:auto; text-align:center">
-    <ul>
-    @{
-        var personArray = Model.ToArray();
-    for(int p=0; p < personArray.Length; p++)
-    {
-        var person = personArray[p];
-        @Html.Hidden("CheckinPeople["+p+"]", person.Id)
-        <li>@person.FirstName @person.LastName</li>
-    }
-    }
-    </ul>
+<div class="container" style="clear:both; float:none; width:auto; margin:auto; text-align:center">
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Name</th><th>E-Mail</th></tr>
+        </thead>
+        <tbody>
+            @{
+            var personArray = Model.ToArray();
+            for(int p=0; p < personArray.Length; p++)
+            {
+                var person = personArray[p];
+                <tr>
+                    @Html.Hidden("CheckinPeople["+p+"]", person.Id)
+                    <td class="">
+                        @person.FirstName @person.LastName
+                    </td>
+                    <td>
+                        @Html.TextBox("PersonEmail[" + p + "]", person.Email)
+                    </td>
+                </tr>
+            }
+            }
+        </tbody>
+    </table>
     <button>Confirm</button>
     <button id="Cancel">Cancel</button>
 </div>

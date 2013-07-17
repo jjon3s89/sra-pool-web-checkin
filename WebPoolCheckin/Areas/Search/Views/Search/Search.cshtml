@@ -40,7 +40,7 @@
             });
 
             $('button.delete').click(function (e) {
-                if (confirm('Are you sure you want to archive the person "' + $(this).parent().find("span.person-name").text() + '"?')) {
+                if (confirm('Are you sure you want to archive the person "' + $(this).parent().parent().find("span.person-name").text() + '"?')) {
                     $('#checkin-form').attr('action', '@Url.Action("ArchivePerson","Search")');
                     $('#checkin-form input[name="id"]').attr('value', this.value);
                 } else {
