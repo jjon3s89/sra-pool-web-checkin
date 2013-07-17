@@ -28,5 +28,10 @@ namespace WebPoolCheckin.Areas.Report.Controllers
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
             return View(ctx.rpt_employee_time.OrderBy(h => h.LastName).ThenBy(h => h.date_time));
         }
+        public ActionResult Emails()
+        {
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            return View(ctx.People.Where(p=>!(p.Email == null || p.Email == "")).OrderBy(h => h.LastName).ThenBy(h => h.Email));
+        }
     }
 }

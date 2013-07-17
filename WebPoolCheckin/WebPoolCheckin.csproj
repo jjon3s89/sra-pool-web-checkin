@@ -341,6 +341,7 @@
     <Content Include="Areas\Search\Views\Employee\Delete.cshtml" />
     <Content Include="Areas\Search\Views\Employee\Checkin.cshtml" />
     <Content Include="Areas\Report\Views\Report\EmployeeTime.cshtml" />
+    <Content Include="Areas\Report\Views\Report\Emails.cshtml" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
