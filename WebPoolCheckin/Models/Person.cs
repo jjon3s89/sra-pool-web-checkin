@@ -38,6 +38,8 @@ namespace WebPoolCheckin.Models
         public Nullable<int> Family_Person { get; set; }
         public Nullable<int> FamilyMemberType_Person { get; set; }
         public Nullable<bool> Is_Guest { get; set; }
+        public bool Is_Minor { get; set; }
+        public Nullable<bool> Needs_Adult { get; set; }
     
         public virtual ICollection<Entry> Entries { get; set; }
         public virtual Family Family { get; set; }

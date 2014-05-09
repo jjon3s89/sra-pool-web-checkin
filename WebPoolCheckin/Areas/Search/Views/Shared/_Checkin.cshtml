@@ -1,5 +1,9 @@
 ﻿@model WebPoolCheckin.Models.Share
 
+@if (!Model.Paid_Dues)
+{
+    <div class="alert alert-error">Member dues have not been paid!</div>
+}
 
 @using (Html.BeginForm("Checkin", "Search", FormMethod.Post, new { @class = "form-inline", id="checkin-form" }))
 {

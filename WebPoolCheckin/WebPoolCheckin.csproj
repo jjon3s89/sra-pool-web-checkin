@@ -134,6 +134,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SharesController.cs" />
     <Compile Include="Areas\Report\Controllers\ReportController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Areas\Search\Controllers\EmployeeController.cs" />
@@ -342,6 +343,10 @@
     <Content Include="Areas\Search\Views\Employee\Checkin.cshtml" />
     <Content Include="Areas\Report\Views\Report\EmployeeTime.cshtml" />
     <Content Include="Areas\Report\Views\Report\Emails.cshtml" />
+    <Content Include="Areas\Admin\Views\Shares\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shares\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Shares\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shares\Delete.cshtml" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -380,6 +385,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Admin\Views\Share\" />
     <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Report\Views\Shared\" />
     <Folder Include="Util\" />

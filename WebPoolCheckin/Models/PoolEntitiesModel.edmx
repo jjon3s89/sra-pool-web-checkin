@@ -205,6 +205,8 @@
           <Property Name="Family_Person" Type="int" />
           <Property Name="FamilyMemberType_Person" Type="int" />
           <Property Name="Is_Guest" Type="bit" />
+          <Property Name="Is_Minor" Type="bit" Nullable="false" />
+          <Property Name="Needs_Adult" Type="bit" />
         </EntityType>
         <EntityType Name="PoolAccesses">
           <Key>
@@ -243,6 +245,7 @@
           <Property Name="Message" Type="nvarchar" MaxLength="255" />
           <Property Name="Active" Type="bit" />
           <Property Name="Share_Address" Type="int" />
+          <Property Name="Paid_Dues" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ShareUserTypes">
           <Key>
@@ -289,9 +292,6 @@
           <Property Name="date_time" Type="varchar" MaxLength="26" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Applications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <!--Errors Found During Generation:
       warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_MembershipUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="vw_aspnet_MembershipUsers">
@@ -337,18 +337,6 @@
           <Property Name="IsAnonymous" Type="bit" Nullable="false" />
           <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Profiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_UsersInRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <Association Name="Address_Street">
           <End Role="Streets" Type="PoolDataEntitiesModel.Store.Streets" Multiplicity="1" />
           <End Role="Addresses" Type="PoolDataEntitiesModel.Store.Addresses" Multiplicity="*" />
@@ -674,6 +662,8 @@
           <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.Family_Person" FromRole="People" ToRole="Families" />
           <NavigationProperty Name="FamilyMemberType" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="People" ToRole="FamilyMemberTypes" />
           <Property Type="Boolean" Name="Is_Guest" DefaultValue="false" />
+          <Property Type="Boolean" Name="Is_Minor" Nullable="false" />
+          <Property Type="Boolean" Name="Needs_Adult" />
         </EntityType>
         <EntityType Name="PoolAccess">
           <Key>
@@ -721,6 +711,7 @@
           <Property Name="Share_Address" Type="Int32" />
           <NavigationProperty Name="Address" Relationship="PoolDataEntitiesModel.Share_Address" FromRole="Shares" ToRole="Addresses" />
           <NavigationProperty Name="ShareFamilies" Relationship="PoolDataEntitiesModel.ShareFamily_Share" FromRole="Shares" ToRole="ShareFamilies" />
+          <Property Type="Boolean" Name="Paid_Dues" Nullable="false" />
         </EntityType>
         <EntityType Name="ShareUserType">
           <Key>
@@ -1055,6 +1046,8 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Person">
               <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="Needs_Adult" ColumnName="Needs_Adult" />
+                <ScalarProperty Name="Is_Minor" ColumnName="Is_Minor" />
                 <ScalarProperty Name="Is_Guest" ColumnName="Is_Guest" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1110,6 +1103,7 @@
           <EntitySetMapping Name="Shares">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Share">
               <MappingFragment StoreEntitySet="Shares">
+                <ScalarProperty Name="Paid_Dues" ColumnName="Paid_Dues" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="Message" ColumnName="Message" />

@@ -24,6 +24,7 @@ namespace WebPoolCheckin.Models
         public string Message { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<int> Share_Address { get; set; }
+        public bool Paid_Dues { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual ICollection<ShareFamily> ShareFamilies { get; set; }
