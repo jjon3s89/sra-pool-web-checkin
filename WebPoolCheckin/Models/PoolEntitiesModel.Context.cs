@@ -41,5 +41,6 @@ namespace WebPoolCheckin.Models
         public DbSet<vw_aspnet_MembershipUsers> vw_aspnet_MembershipUsers { get; set; }
         public DbSet<hourlycount> hourlycounts { get; set; }
         public DbSet<rpt_employee_time> rpt_employee_time { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
     }
 }

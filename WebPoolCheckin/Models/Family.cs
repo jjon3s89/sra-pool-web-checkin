@@ -29,6 +29,7 @@ namespace WebPoolCheckin.Models
         public string PrimaryPhone { get; set; }
         public Nullable<int> Family_Address { get; set; }
         public Nullable<int> Family_ShareUserType { get; set; }
+        public int guest_ticket_count { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual ICollection<Person> People { get; set; }

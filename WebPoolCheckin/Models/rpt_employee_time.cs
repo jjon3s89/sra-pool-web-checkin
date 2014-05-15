@@ -18,6 +18,6 @@ namespace WebPoolCheckin.Models
         public string LastName { get; set; }
         public string EmployeeType { get; set; }
         public string in_out { get; set; }
-        public string date_time { get; set; }
+        public System.DateTime date_time { get; set; }
     }
 }

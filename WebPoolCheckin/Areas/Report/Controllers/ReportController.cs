@@ -20,13 +20,13 @@ namespace WebPoolCheckin.Areas.Report.Controllers
         public ActionResult Hourly()
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-            return View(ctx.hourlycounts.OrderByDescending(h => h.entry_date).ThenBy(h => h.hour_slot));
+            return View(ctx.hourlycounts.AsNoTracking().OrderByDescending(h => h.entry_date).ThenBy(h => h.hour_slot));
             //return View(ctx.hourlycounts);
         }
         public ActionResult EmployeeTime()
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-            return View(ctx.rpt_employee_time.OrderBy(h => h.LastName).ThenBy(h => h.date_time));
+            return View(ctx.rpt_employee_time.AsNoTracking().OrderBy(h => h.LastName).ThenBy(h => h.date_time));
         }
         public ActionResult Emails()
         {

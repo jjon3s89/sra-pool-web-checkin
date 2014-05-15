@@ -54,11 +54,23 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Share share)
+        public ActionResult Edit(Share share, int employeeId = 0)
         {
+            PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
+            if (!ctx.Employees.Any(e => e.Id == employeeId && e.Active == true))
+            {
+                ModelState.AddModelError("employeeId", "You must provide a valid employee ID in order to make this change");
+            }
+
             if (ModelState.IsValid)
             {
+                Employee employee = ctx.Employees.Single(e => e.Id == employeeId);
+                share.Notes = "Marked " + (share.Paid_Dues ? "paid" : "unpaid") + " by " + employee.FullName + ". Date " + new DateTime();
                 db.Entry(share).State = EntityState.Modified;
+                AuditLog log = new AuditLog(){
+                    date = new DateTime(),
+                    message = "Share " + share.Id + " marked " + (share.Paid_Dues ? "paid" : "unpaid") + " by " + employee.FullName};
+                db.AuditLogs.Add(log);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

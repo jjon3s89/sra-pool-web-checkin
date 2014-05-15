@@ -64,42 +64,85 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             {
                 checkinPersonObjects.Add(ctx.People.Single(p => p.Id == pid));
             }
+            if (!checkinPersonObjects.First().Family.ShareFamilies.First().Share.Paid_Dues)
+            {
+                ModelState.AddModelError("CheckinPeople", "Member dues have not been paid!  Please see an employee");
+            }
             if (!checkinPersonObjects.Any(p=>!p.Is_Guest.HasValue || !p.Is_Guest.Value))
             {
                 ModelState.AddModelError("CheckinPeople", "You must select a member to check in");
-                return Search(Id.ToString());
             }
-            return View("ConfirmCheckin", checkinPersonObjects);
+            if (ModelState.IsValid)
+            {
+                return View("ConfirmCheckin", checkinPersonObjects);
+            }
+            return Search(Id.ToString());
         }
 
         [HttpPost]
-        public ActionResult ConfirmCheckin(int[] CheckinPeople, String[] PersonEmail)
+        public ActionResult ConfirmCheckin(int[] CheckinPeople, String[] PersonEmail, int TicketCount, int CashCount)
         {
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-            for (int i = 0; i < CheckinPeople.Length; i++ )
+            var checkinPersonObjects = new List<Person>();
+            foreach (var pid in CheckinPeople)
             {
+                checkinPersonObjects.Add(ctx.People.Single(p => p.Id == pid));
+            }
+            if((TicketCount + CashCount) != checkinPersonObjects.Count(p => p.Is_Guest == true)){
+                ModelState.AddModelError("CheckinPeople","Cash and ticket counts do not equal guest count");
+            }
+            if (!checkinPersonObjects.First().Family.ShareFamilies.First().Share.Paid_Dues)
+            {
+                ModelState.AddModelError("CheckinPeople", "Member dues have not been paid!  Please see an employee");
+            }
+
+            var remainingCash = CashCount;
+            for (int i = 0; i < CheckinPeople.Length; i++)
+            {
+                var personId = CheckinPeople[i];
+                Person person = ctx.People.Single(p => p.Id == personId);
+
                 var entry = new Entry()
                 {
-                    Entry_Person = CheckinPeople[i],
+                    Entry_Person = personId,
                     Time = DateTime.Now
                 };
+                if (person.Is_Guest == true)
+                {
+                    entry.Entry_Type = remainingCash > 0 ? "CASH" : "TICKET";
+                    remainingCash--;
+                    AuditLog log = new AuditLog()
+                    {
+                        date = new DateTime(),
+                        message = person.FullName + " used " + entry.Entry_Type,
+                        personId = personId
+                    };
+                    ctx.AuditLogs.Add(log);
+                }
+                else
+                {
+                    entry.Entry_Type = "MEMBER";
+                }
                 ctx.Entries.Add(entry);
                 try
                 {
                     if (!String.IsNullOrWhiteSpace(PersonEmail[i]))
                     {
                         MailAddress address = new MailAddress(PersonEmail[i]);
-                        int pid = CheckinPeople[i];
-                        Person person = ctx.People.Single(p => p.Id == pid);
                         person.Email = PersonEmail[i];
                     }
                 }
                 catch (Exception) 
                 { }
             }
-            ctx.SaveChanges();
-            TempData["success"] = "Successfully checked in";
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+
+                ctx.SaveChanges();
+                TempData["success"] = "Successfully checked in";
+                return RedirectToAction("Index");
+            }
+            return View("ConfirmCheckin", checkinPersonObjects);
         }
 
         [HttpPost]

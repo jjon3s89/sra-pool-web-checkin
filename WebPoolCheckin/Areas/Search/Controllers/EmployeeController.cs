@@ -102,45 +102,45 @@ namespace WebPoolCheckin.Areas.Search.Controllers
         //
         // POST: /Search/Employee/Edit/5
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(EmployeeTime employeetime)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(employeetime).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.EmployeeId = new SelectList(db.Employees, "Id", "FirstName", employeetime.EmployeeId);
-            return View(employeetime);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(EmployeeTime employeetime)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(employeetime).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.EmployeeId = new SelectList(db.Employees, "Id", "FirstName", employeetime.EmployeeId);
+        //    return View(employeetime);
+        //}
 
         //
         // GET: /Search/Employee/Delete/5
 
-        public ActionResult Delete(int id = 0)
-        {
-            EmployeeTime employeetime = db.EmployeeTimes.Find(id);
-            if (employeetime == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employeetime);
-        }
+        //public ActionResult Delete(int id = 0)
+        //{
+        //    EmployeeTime employeetime = db.EmployeeTimes.Find(id);
+        //    if (employeetime == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(employeetime);
+        //}
 
-        //
-        // POST: /Search/Employee/Delete/5
+        ////
+        //// POST: /Search/Employee/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            EmployeeTime employeetime = db.EmployeeTimes.Find(id);
-            db.EmployeeTimes.Remove(employeetime);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    EmployeeTime employeetime = db.EmployeeTimes.Find(id);
+        //    db.EmployeeTimes.Remove(employeetime);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

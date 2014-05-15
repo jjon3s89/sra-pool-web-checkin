@@ -6,6 +6,7 @@
 
 @using(Html.BeginForm("ConfirmCheckin","Search")){
 <div class="container" style="clear:both; float:none; width:auto; margin:auto; text-align:center">
+    @Html.ValidationSummary()
     <table class="table table-striped">
         <thead>
             <tr><th>Name</th><th>E-Mail</th></tr>
@@ -20,6 +21,12 @@
                     @Html.Hidden("CheckinPeople["+p+"]", person.Id)
                     <td class="">
                         @person.FirstName @person.LastName
+                        @if(person.Is_Guest == true){
+                            <text>*</text>
+                        }
+                        @if(person.Needs_Adult == true){
+                            <i class="glyphicons icon-flag"/>
+                        }
                     </td>
                     <td>
                         @Html.TextBox("PersonEmail[" + p + "]", person.Email)
@@ -29,8 +36,30 @@
             }
         </tbody>
     </table>
+    @if (Model.Any(p => p.Is_Guest == true))
+    {
+        <table>
+            <tr>
+                <td>How many tickets are being used?</td>
+                <td>
+                    @Html.TextBox("TicketCount",0)
+                </td>
+            </tr>
+            <tr>
+                <td>How many guests are paying cash?</td>
+                <td>
+                    @Html.TextBox("CashCount",0)
+                </td>
+            </tr>
+        </table>
+        
+    }else{
+        @Html.Hidden("TicketCount",0)
+        @Html.Hidden("CashCount",0)
+    }
+
     <button>Confirm</button>
-    <button id="Cancel">Cancel</button>
+    <button id="cancel">Cancel</button>
 </div>
 }
 </div>
@@ -38,8 +67,9 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
-            $("#Cancel").button().click(function() {
-                window.location="~/";
+            $("#cancel").button().click(function (e) {
+                e.preventDefault();
+                window.location="/";
             });
         });
         

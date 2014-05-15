@@ -18,6 +18,7 @@ namespace WebPoolCheckin.Models
         public System.DateTime Time { get; set; }
         public int Entry_Person { get; set; }
         public Nullable<bool> Is_exit { get; set; }
+        public string Entry_Type { get; set; }
     
         public virtual Person Person { get; set; }
     }

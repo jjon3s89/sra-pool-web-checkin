@@ -7,6 +7,7 @@
     <Schema Namespace="PoolDataEntitiesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="PoolDataEntitiesModelStoreContainer">
           <EntitySet Name="Addresses" EntityType="PoolDataEntitiesModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AuditLog" EntityType="PoolDataEntitiesModel.Store.AuditLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Employee" EntityType="PoolDataEntitiesModel.Store.Employee" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EmployeeTime" EntityType="PoolDataEntitiesModel.Store.EmployeeTime" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Entries" EntityType="PoolDataEntitiesModel.Store.Entries" store:Type="Tables" Schema="dbo" />
@@ -132,6 +133,15 @@
           <Property Name="HouseNumber" Type="smallint" />
           <Property Name="Address_Street" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="date" Type="datetime2" Nullable="false" />
+          <Property Name="message" Type="ntext" Nullable="false" />
+          <Property Name="personId" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
@@ -161,6 +171,7 @@
           <Property Name="Time" Type="datetime" Nullable="false" />
           <Property Name="Entry_Person" Type="int" Nullable="false" />
           <Property Name="Is_exit" Type="bit" />
+          <Property Name="Entry_Type" Type="varchar" Nullable="false" MaxLength="8" />
         </EntityType>
         <EntityType Name="Families">
           <Key>
@@ -174,6 +185,7 @@
           <Property Name="PrimaryPhone" Type="nvarchar" MaxLength="255" />
           <Property Name="Family_Address" Type="int" />
           <Property Name="Family_ShareUserType" Type="int" />
+          <Property Name="guest_ticket_count" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FamilyMemberTypes">
           <Key>
@@ -206,7 +218,7 @@
           <Property Name="FamilyMemberType_Person" Type="int" />
           <Property Name="Is_Guest" Type="bit" />
           <Property Name="Is_Minor" Type="bit" Nullable="false" />
-          <Property Name="Needs_Adult" Type="bit" />
+          <Property Name="Needs_Adult" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PoolAccesses">
           <Key>
@@ -284,12 +296,13 @@
             <PropertyRef Name="LastName" />
             <PropertyRef Name="EmployeeType" />
             <PropertyRef Name="in_out" />
+            
           </Key>
           <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="EmployeeType" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="in_out" Type="varchar" Nullable="false" MaxLength="3" />
-          <Property Name="date_time" Type="varchar" MaxLength="26" />
+          <Property Name="date_time" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'applicationdata.dbo.vw_aspnet_MembershipUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -584,6 +597,7 @@
           <EntitySet Name="vw_aspnet_MembershipUsers" EntityType="PoolDataEntitiesModel.vw_aspnet_MembershipUsers" />
           <EntitySet Name="hourlycounts" EntityType="PoolDataEntitiesModel.hourlycount" />
           <EntitySet Name="rpt_employee_time" EntityType="PoolDataEntitiesModel.rpt_employee_time" />
+          <EntitySet Name="AuditLogs" EntityType="PoolDataEntitiesModel.AuditLog" />
         </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -609,6 +623,7 @@
           <Property Name="Entry_Person" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="PoolDataEntitiesModel.Entry_Person" FromRole="Entries" ToRole="People" />
           <Property Type="Boolean" Name="Is_exit" />
+          <Property Type="String" Name="Entry_Type" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Family">
           <Key>
@@ -627,6 +642,7 @@
           <NavigationProperty Name="ShareUserType" Relationship="PoolDataEntitiesModel.Family_ShareUserType" FromRole="Families" ToRole="ShareUserTypes" />
           <NavigationProperty Name="PoolAccesses" Relationship="PoolDataEntitiesModel.PoolAccess_Family" FromRole="Families" ToRole="PoolAccesses" />
           <NavigationProperty Name="ShareFamilies" Relationship="PoolDataEntitiesModel.ShareFamily_Family" FromRole="Families" ToRole="ShareFamilies" />
+          <Property Type="Int32" Name="guest_ticket_count" Nullable="false" />
         </EntityType>
         <EntityType Name="FamilyMemberType">
           <Key>
@@ -663,7 +679,7 @@
           <NavigationProperty Name="FamilyMemberType" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="People" ToRole="FamilyMemberTypes" />
           <Property Type="Boolean" Name="Is_Guest" DefaultValue="false" />
           <Property Type="Boolean" Name="Is_Minor" Nullable="false" />
-          <Property Type="Boolean" Name="Needs_Adult" />
+          <Property Type="Boolean" Name="Needs_Adult" Nullable="false" />
         </EntityType>
         <EntityType Name="PoolAccess">
           <Key>
@@ -989,7 +1005,16 @@
           <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EmployeeType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="in_out" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="date_time" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="date_time" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="DateTime" Name="date" Nullable="false" Precision="7" />
+          <Property Type="String" Name="message" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="personId" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1013,6 +1038,7 @@
           <EntitySetMapping Name="Entries">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Entry">
               <MappingFragment StoreEntitySet="Entries">
+                <ScalarProperty Name="Entry_Type" ColumnName="Entry_Type" />
                 <ScalarProperty Name="Is_exit" ColumnName="Is_exit" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
@@ -1023,6 +1049,7 @@
           <EntitySetMapping Name="Families">
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Family">
               <MappingFragment StoreEntitySet="Families">
+                <ScalarProperty Name="guest_ticket_count" ColumnName="guest_ticket_count" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
                 <ScalarProperty Name="EmergencyContact" ColumnName="EmergencyContact" />
@@ -1199,6 +1226,16 @@
                 <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogs">
+            <EntityTypeMapping TypeName="PoolDataEntitiesModel.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="date" ColumnName="date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

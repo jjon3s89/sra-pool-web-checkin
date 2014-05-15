@@ -14,7 +14,7 @@
         <legend>Share</legend>
 
         @Html.HiddenFor(model => model.Id)
-
+        @*
         <div class="editor-label">
             @Html.LabelFor(model => model.Notes)
         </div>
@@ -22,7 +22,6 @@
             @Html.EditorFor(model => model.Notes)
             @Html.ValidationMessageFor(model => model.Notes)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Message)
         </div>
@@ -30,6 +29,7 @@
             @Html.EditorFor(model => model.Message)
             @Html.ValidationMessageFor(model => model.Message)
         </div>
+        *@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Active)
@@ -53,6 +53,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Paid_Dues)
             @Html.ValidationMessageFor(model => model.Paid_Dues)
+        </div>
+        
+        <div class="editor-label">
+            @Html.Label("Employee ID")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("employeeId")
+            @Html.ValidationMessage("employeeId")
         </div>
 
         <p>

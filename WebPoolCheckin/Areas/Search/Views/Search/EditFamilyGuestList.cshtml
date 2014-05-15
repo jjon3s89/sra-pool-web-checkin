@@ -30,12 +30,16 @@
             }
         </table>
     }
-    <button style="width:10em" id="clear" class="btn">Cancel</button>
+    <button style="width:10em" id="cancel" class="btn">Cancel</button>
 }
 
 @section scripts{
     <script type="text/javascript">
         $(function () {
+            $('#cancel').click(function (e) {
+                e.preventDefault();
+                window.location = '/';
+            });
 
             $('button.delete').click(function (e) {
                 e.preventDefault();

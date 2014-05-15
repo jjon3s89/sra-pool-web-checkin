@@ -1,13 +1,14 @@
 ﻿@model WebPoolCheckin.Models.Share
 
-@if (!Model.Paid_Dues)
-{
-    <div class="alert alert-error">Member dues have not been paid!</div>
-}
+<br />
 
 @using (Html.BeginForm("Checkin", "Search", FormMethod.Post, new { @class = "form-inline", id="checkin-form" }))
 {
-    <div class="container" style="border:1px gray solid; clear: none;  text-align:center;">
+    <div class="container clearfix" style="border:1px gray solid; text-align:center;">
+        @if (!Model.Paid_Dues)
+        {
+            <div class="alert alert-warning lead">Member dues have not been paid!</div>
+        }
         @Html.HiddenFor(m => m.Id)
         @foreach (var sf in Model.ShareFamilies.Where(sf => sf.Active))
         {
@@ -18,6 +19,10 @@
                     @if (p.Picture != null)
                     {
                         <span class="person-name">@p.FullName</span><br />
+                        if(p.Needs_Adult==true)
+                        {
+                            <div class="text-warning">Adult required*</div>
+                        }
                         <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">Change Picture</a>
                         <img src='@Url.Action("PersonImage", "Search", new { id = p.Id })' height="200" width="200" class="person img-rounded" />
                     }
@@ -25,6 +30,10 @@
                     {
                         <a href="@Url.Action("AddImageToPerson", "Search", new { Id = Model.Id, PersonId = p.Id })" title="Click to upload image">
                             <span class="person-name">@p.FullName</span>
+                            @if(p.Needs_Adult==true)
+                            {
+                                <div class="text-warning">Adult required*</div>
+                            }
                             <img src='~/Images/default_user_300x300.png' class="no-image img-rounded" height="200" width="200" />
                         </a>
                     }
@@ -40,7 +49,11 @@
                     <select name="CheckinPeople" multiple="multiple" size="6">
                         @foreach (var p in sf.Family.People.Where(p => p.Is_Guest.HasValue && p.Is_Guest.Value))
                         {
-                            <option value="@p.Id">@p.FullName</option>
+                            <option value="@p.Id">@p.FullName
+                                @if(p.Needs_Adult==true){
+                                    <text>*</text>
+                                }
+                            </option>
                         }
                     </select>
                     <button name="edit-family-guests" id="edit-family-guests" class="edit-guests btn btn-info" value="@sf.Family.Id"><i class="icon-edit"></i> Edit List</button>
@@ -52,6 +65,7 @@
             <button style="width:15em" name="guests" id="guests" value="true" class="btn btn-primary">Checkin w/ New Guests</button>
         </div>
 
+        <br />
     </div>
         
 }

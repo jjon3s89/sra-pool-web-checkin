@@ -136,6 +136,22 @@
             @Html.CheckBox("Person.Is_Guest", true)
             @Html.ValidationMessageFor(model => model.Person.Is_Guest)
         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.Is_Minor,"Is This Person a Minor?")
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("Person.Is_Minor", true)
+            @Html.ValidationMessageFor(model => model.Person.Is_Minor)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Person.Needs_Adult,"Has this person passed the swim test?")
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("Person.Needs_Adult", false)
+            @Html.ValidationMessageFor(model => model.Person.Needs_Adult)
+        </div>
         <p>
             <input type="submit" value="Create and Add Another Guest" />
             <input type="submit" name="checkin" value="Create and Proceed to Checkin" />
