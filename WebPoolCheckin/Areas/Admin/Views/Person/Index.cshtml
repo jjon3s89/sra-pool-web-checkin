@@ -4,18 +4,20 @@
     ViewBag.Title = "Index";
 }
 
-    <h2>People</h2>
-
     @using (Html.BeginForm())
     {
         <div style="width:50em; margin:auto; text-align:center">
-            <h3>Search by Name</h3>
+            <h3>Search People by Name</h3>
             @Html.TextBox("Filter", "", new { @class = "input-large search-query" })
             <br />
             <br />
             <div>
                 <button style="width:10em" class="btn btn-primary">Go</button>
+                <br />
+                <a href="~/Report">Return to Index</a>
+
             </div>
+            @Html.ValidationSummary()
         </div>
     }
 
@@ -28,16 +30,10 @@
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MiddleName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmergencyContact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmergencyContactPhone)
+                @Html.DisplayName("Share")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Family.FamilyName)
@@ -54,9 +50,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Needs_Adult)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
             <th></th>
         </tr>
 
@@ -69,16 +62,12 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MiddleName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmergencyContact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmergencyContactPhone)
+                @if(item.Family.ShareFamilies.Any() && item.Family.ShareFamilies.Single().Share != null){
+                @Html.DisplayFor(modelItem => item.Family.ShareFamilies.First().Share.Id)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Family.FamilyName)
@@ -94,9 +83,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Needs_Adult)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -20,8 +20,6 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
         {
             if (!string.IsNullOrWhiteSpace(filter))
             {
-                PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
-
                 var filterFirst = filter;
                 var filterLast = filter;
                 IEnumerable<Person> people;
@@ -30,14 +28,18 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
                     filterFirst = filter.Split(' ')[0];
                     filterLast = filter.Split(' ')[1];
                     //first AND last
-                    people = from p in ctx.People where p.FirstName.Contains(filterFirst) && p.LastName.Contains(filterLast) orderby p.LastName, p.FirstName select p;
+                    people = from p in db.People where p.FirstName.Contains(filterFirst) && p.LastName.Contains(filterLast) orderby p.LastName, p.FirstName select p;
                 }
                 else
                 {
                     //first OR last
-                    people = from p in ctx.People where p.FirstName.Contains(filterFirst) || p.LastName.Contains(filterLast) orderby p.LastName, p.FirstName select p;
+                    people = from p in db.People where p.FirstName.Contains(filterFirst) || p.LastName.Contains(filterLast) orderby p.LastName, p.FirstName select p;
                 }
-                return View(people);
+                if (people.Count() > 30)
+                {
+                    TempData["error"] = "More than 30 people found.  Limiting view to First 30.";
+                }
+                return View(people.Take(30));
             }
             return View(new List<Person>());
         }
@@ -104,12 +106,14 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Person person)
+        public ActionResult Edit(int Id, Person person)
         {
+            person.Id = Id;
             if (ModelState.IsValid)
             {
                 db.Entry(person).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Successfully saved person!";
                 return RedirectToAction("Index");
             }
             ViewBag.Family_Person = new SelectList(db.Families, "Id", "FamilyName", person.Family_Person);

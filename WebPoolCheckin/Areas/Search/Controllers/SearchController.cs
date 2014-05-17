@@ -158,6 +158,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             return View("AddGuest", viewModel);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult AddCheckinGuest(int Id, int[] CheckinPeople, Person Person, HttpPostedFileBase picture)
         {
@@ -225,6 +226,7 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             return View("AddImageToPerson",Person);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult AddImageToPerson(int Id, int PersonId,HttpPostedFileBase picture){
             PoolDataEntitiesConnection ctx = new PoolDataEntitiesConnection();
