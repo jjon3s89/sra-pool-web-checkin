@@ -1,0 +1,62 @@
+﻿@model WebPoolCheckin.Models.ShareFamily
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ShareFamily</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShareFamily_Share, "Share")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ShareFamily_Share", String.Empty)
+            @Html.ValidationMessageFor(model => model.ShareFamily_Share)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShareFamily_Family, "Family")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ShareFamily_Family", String.Empty)
+            @Html.ValidationMessageFor(model => model.ShareFamily_Family)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ShareFamily_ShareUserType, "ShareUserType")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ShareFamily_ShareUserType", String.Empty)
+            @Html.ValidationMessageFor(model => model.ShareFamily_ShareUserType)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

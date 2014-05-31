@@ -283,6 +283,18 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             var family = person.Family;
             person.Family = null;
             family.People.Remove(person);
+            if (family.People.Where(p=>p.Is_Guest == false).Count() == 0)
+            {
+                ModelState.AddModelError("id", "You must add another member first in order to remove this entry");
+                return Search(family.ShareFamilies.Single().Share.Id.ToString());                
+            }
+            AuditLog log = new AuditLog()
+            {
+                date = new DateTime(),
+                message = person.FullName + " removed from family " + family.FamilyName + ", family.id=" + family.Id + ", share=" + family.ShareFamilies.Single().Share.Id,
+                personId = id
+            };
+            ctx.AuditLogs.Add(log);
             ctx.SaveChanges();
             TempData["success"] = "Successfully archived person";
             return Search(id.ToString());
@@ -301,6 +313,12 @@ namespace WebPoolCheckin.Areas.Search.Controllers
             var family = person.Family;
             person.Family = null;
             family.People.Remove(person);
+            AuditLog log = new AuditLog()
+            {
+                date = new DateTime(),
+                message = person.FullName + " removed from family " + family.FamilyName + ", family.id=" + family.Id + ", share=" + family.ShareFamilies.Single().Share.Id,
+                personId = Id
+            }; 
             ctx.SaveChanges();
             TempData["success"] = "Successfully archived guest";
             return new JsonResult() { Data = new { Success = true } };

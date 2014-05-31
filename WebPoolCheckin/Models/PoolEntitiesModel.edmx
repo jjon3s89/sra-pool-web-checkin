@@ -217,7 +217,6 @@
           <Property Name="Family_Person" Type="int" />
           <Property Name="FamilyMemberType_Person" Type="int" />
           <Property Name="Is_Guest" Type="bit" />
-          <Property Name="Is_Minor" Type="bit" Nullable="false" />
           <Property Name="Needs_Adult" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="PoolAccesses">
@@ -678,7 +677,6 @@
           <NavigationProperty Name="Family" Relationship="PoolDataEntitiesModel.Family_Person" FromRole="People" ToRole="Families" />
           <NavigationProperty Name="FamilyMemberType" Relationship="PoolDataEntitiesModel.FamilyMemberType_Person" FromRole="People" ToRole="FamilyMemberTypes" />
           <Property Type="Boolean" Name="Is_Guest" DefaultValue="false" />
-          <Property Type="Boolean" Name="Is_Minor" Nullable="false" />
           <Property Type="Boolean" Name="Needs_Adult" Nullable="false" />
         </EntityType>
         <EntityType Name="PoolAccess">
@@ -1074,7 +1072,6 @@
             <EntityTypeMapping TypeName="PoolDataEntitiesModel.Person">
               <MappingFragment StoreEntitySet="People">
                 <ScalarProperty Name="Needs_Adult" ColumnName="Needs_Adult" />
-                <ScalarProperty Name="Is_Minor" ColumnName="Is_Minor" />
                 <ScalarProperty Name="Is_Guest" ColumnName="Is_Guest" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

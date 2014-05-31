@@ -148,7 +148,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FamilyController.cs" />
     <Compile Include="Areas\Admin\Controllers\PersonController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShareFamilyController.cs" />
     <Compile Include="Areas\Admin\Controllers\SharesController.cs" />
     <Compile Include="Areas\Report\Controllers\ReportController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
@@ -186,6 +188,7 @@
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Metadata\EmployeeMetadata.cs" />
+    <Compile Include="Models\Metadata\FamilyMetadata.cs" />
     <Compile Include="Models\Person.cs">
       <DependentUpon>PoolEntitiesModel.tt</DependentUpon>
     </Compile>
@@ -375,9 +378,16 @@
     <Content Include="Areas\Admin\Views\Person\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Person\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Person\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Person\Delete.cshtml" />
     <Content Include="Areas\Report\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Family\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Family\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Family\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Family\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ShareFamily\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ShareFamily\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ShareFamily\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ShareFamily\Edit.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

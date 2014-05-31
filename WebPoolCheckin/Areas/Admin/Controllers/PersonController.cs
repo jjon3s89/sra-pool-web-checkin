@@ -62,7 +62,7 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Family_Person = new SelectList(db.Families, "Id", "FamilyName");
+            ViewBag.Family_Person = new SelectList(db.Families, "Id", "NameAndShare");
             ViewBag.FamilyMemberType_Person = new SelectList(db.FamilyMemberTypes, "Id", "Name");
             return View();
         }
@@ -81,7 +81,7 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Family_Person = new SelectList(db.Families, "Id", "FamilyName", person.Family_Person);
+            ViewBag.Family_Person = new SelectList(db.Families, "Id", "NameAndShare", person.Family_Person);
             ViewBag.FamilyMemberType_Person = new SelectList(db.FamilyMemberTypes, "Id", "Name", person.FamilyMemberType_Person);
             return View(person);
         }
@@ -96,7 +96,7 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Family_Person = new SelectList(db.Families, "Id", "FamilyName", person.Family_Person);
+            ViewBag.Family_Person = new SelectList(db.Families, "Id", "NameAndShare", person.Family_Person);
             ViewBag.FamilyMemberType_Person = new SelectList(db.FamilyMemberTypes, "Id", "Name", person.FamilyMemberType_Person);
             return View(person);
         }
@@ -119,32 +119,6 @@ namespace WebPoolCheckin.Areas.Admin.Controllers
             ViewBag.Family_Person = new SelectList(db.Families, "Id", "FamilyName", person.Family_Person);
             ViewBag.FamilyMemberType_Person = new SelectList(db.FamilyMemberTypes, "Id", "Name", person.FamilyMemberType_Person);
             return View(person);
-        }
-
-        //
-        // GET: /Admin/Person/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Person person = db.People.Find(id);
-            if (person == null)
-            {
-                return HttpNotFound();
-            }
-            return View(person);
-        }
-
-        //
-        // POST: /Admin/Person/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

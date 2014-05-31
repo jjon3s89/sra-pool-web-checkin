@@ -138,15 +138,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Person.Is_Minor,"Is This Person a Minor?")
-        </div>
-        <div class="editor-field">
-            @Html.CheckBox("Person.Is_Minor", true)
-            @Html.ValidationMessageFor(model => model.Person.Is_Minor)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Person.Needs_Adult,"Has this person passed the swim test?")
+            @Html.LabelFor(model => model.Person.Needs_Adult,"Does this person require an accompanying adult in order to check in?")
         </div>
         <div class="editor-field">
             @Html.CheckBox("Person.Needs_Adult", false)

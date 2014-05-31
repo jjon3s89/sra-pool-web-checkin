@@ -1,0 +1,43 @@
+﻿@model WebPoolCheckin.Models.ShareFamily
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ShareFamily</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Active)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Share.Notes)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Share.Notes)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Family.FamilyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Family.FamilyName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ShareUserType.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ShareUserType.Name)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
